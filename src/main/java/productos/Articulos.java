@@ -16,7 +16,7 @@ import java.util.Scanner;
  *
  * @author aguil
  */
-public class Articulos {
+public class Articulos extends Productos {
 
     private String nombre;
     private int peso;
@@ -25,6 +25,14 @@ public class Articulos {
 
     public Articulos() {
         listaArticulos = new ArrayList<>();
+    }
+
+    public Articulos(String nombre, int peso, LocalDate fechaFabricacion, ArrayList<Articulos> listaArticulos, int idProducto, int precio) {
+        super(idProducto, precio);
+        this.nombre = nombre;
+        this.peso = peso;
+        this.fechaFabricacion = fechaFabricacion;
+        this.listaArticulos = listaArticulos;
     }
 
     public String getNombre() {
@@ -61,9 +69,8 @@ public class Articulos {
 
     @Override
     public String toString() {
-        return "Articulos{" + "nombre=" + nombre + ", peso=" + peso + ", fechaFabricacion=" + fechaFabricacion + ", articulos=" + listaArticulos + '}';
+        return "Articulos{" + "nombre=" + nombre + ", peso=" + peso + ", fechaFabricacion=" + fechaFabricacion + ", listaArticulos=" + listaArticulos + '}';
     }
-    
 
     public ArrayList<Articulos> leerArticulo(String idFichero) {
 
@@ -76,7 +83,7 @@ public class Articulos {
         // Inicialización del flujo "datosFichero" en función del archivo llamado "idFichero"
         // Estructura try-with-resources. Permite cerrar los recursos una vez finalizadas
         // las operaciones con el archivo
-        try ( Scanner datosFichero = new Scanner(new File(idFichero), "UTF-8")) {
+        try (Scanner datosFichero = new Scanner(new File(idFichero), "UTF-8")) {
             // hasNextLine devuelve true mientras haya líneas por leer
             while (datosFichero.hasNextLine()) {
                 // Guarda la línea completa en un String
@@ -87,7 +94,7 @@ public class Articulos {
                 tokens = linea.split(";");
                 tmp.setNombre(tokens[0]);
                 tmp.setPeso(Integer.parseInt(tokens[1]));
-                tmp.setFechaFabricacion(LocalDate.parse(tokens[2],DateTimeFormatter.ofPattern("dd/MM/yyyy"))); 
+                tmp.setFechaFabricacion(LocalDate.parse(tokens[2], DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                 listaArticulos.add(tmp);
 //                for (String string : tokens) {
 //                    System.out.print(string + "\t");
@@ -99,5 +106,5 @@ public class Articulos {
         }
         return listaArticulos;
     }
-    
+
 }

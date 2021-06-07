@@ -16,7 +16,7 @@ import java.util.Scanner;
  *
  * @author aguil
  */
-public class Servicios {
+public class Servicios extends Productos {
 
     private String nombre;
     private int horas;
@@ -26,6 +26,15 @@ public class Servicios {
 
     public Servicios() {
         listaServicios = new ArrayList<>();
+    }
+
+    public Servicios(String nombre, int horas, LocalDate fechaComienzo, LocalDate fechaFin, ArrayList<Servicios> listaServicios, int idProducto, int precio) {
+        super(idProducto, precio);
+        this.nombre = nombre;
+        this.horas = horas;
+        this.fechaComienzo = fechaComienzo;
+        this.fechaFin = fechaFin;
+        this.listaServicios = listaServicios;
     }
 
     public String getNombre() {
@@ -65,8 +74,6 @@ public class Servicios {
         return "Servicios{" + "nombre=" + nombre + ", horas=" + horas + ", fechaComienzo=" + fechaComienzo + ", fechaFin=" + fechaFin + ", listaServicios=" + listaServicios + '}';
     }
 
-
-
     public ArrayList<Servicios> leerServicio(String idFichero) {
 
         // Variables para guardar los datos que se van leyendo
@@ -78,7 +85,7 @@ public class Servicios {
         // Inicialización del flujo "datosFichero" en función del archivo llamado "idFichero"
         // Estructura try-with-resources. Permite cerrar los recursos una vez finalizadas
         // las operaciones con el archivo
-        try ( Scanner datosFichero = new Scanner(new File(idFichero), "ISO-8859-1")) {
+        try (Scanner datosFichero = new Scanner(new File(idFichero), "ISO-8859-1")) {
             // hasNextLine devuelve true mientras haya líneas por leer
             while (datosFichero.hasNextLine()) {
                 // Guarda la línea completa en un String
@@ -88,9 +95,9 @@ public class Servicios {
                 Servicios tmp = new Servicios();
                 tokens = linea.split(";");
                 tmp.setNombre(tokens[0]);
-                tmp.setHoras(Integer.parseInt(tokens[1])); 
-                tmp.setFechaComienzo(LocalDate.parse(tokens[2], DateTimeFormatter.ofPattern("dd/MM/yyyy"))); 
-                tmp.setFechaFin(LocalDate.parse(tokens[3], DateTimeFormatter.ofPattern("dd/MM/yyyy"))); 
+                tmp.setHoras(Integer.parseInt(tokens[1]));
+                tmp.setFechaComienzo(LocalDate.parse(tokens[2], DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                tmp.setFechaFin(LocalDate.parse(tokens[3], DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                 listaServicios.add(tmp);
 //                for (String string : tokens) {
 //                    System.out.print(string + "\t");
