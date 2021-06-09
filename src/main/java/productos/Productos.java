@@ -11,26 +11,26 @@ package productos;
  */
 public class Productos {
 
-    private int idProducto;
-    private int precio;
+    private String idProducto;
+    private double precio;
 
     public Productos() {
     }
 
-    public Productos(int idProducto, int precio) {
+    public Productos(String idProducto, double precio) {
         this.idProducto = idProducto;
         this.precio = precio;
     }
 
-    public int getIdProducto() {
+    public String getIdProducto() {
         return idProducto;
     }
 
-    public void setIdProducto(int idProducto) {
+    public void setIdProducto(String idProducto) {
         this.idProducto = idProducto;
     }
 
-    public int getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 

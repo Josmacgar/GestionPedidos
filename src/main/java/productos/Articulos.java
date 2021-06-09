@@ -5,6 +5,11 @@
  */
 package productos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
@@ -20,6 +25,10 @@ public class Articulos extends Productos {
 
     private String nombre;
     private int peso;
+    //sirve para dar formato en las fechas en los ficheros JSON
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate fechaFabricacion;
     private ArrayList<Articulos> listaArticulos;
 
@@ -27,12 +36,12 @@ public class Articulos extends Productos {
         listaArticulos = new ArrayList<>();
     }
 
-    public Articulos(String nombre, int peso, LocalDate fechaFabricacion, ArrayList<Articulos> listaArticulos, int idProducto, int precio) {
+    public Articulos(String nombre, int peso, LocalDate fechaFabricacion, String idProducto, double precio) {
         super(idProducto, precio);
         this.nombre = nombre;
         this.peso = peso;
         this.fechaFabricacion = fechaFabricacion;
-        this.listaArticulos = listaArticulos;
+        listaArticulos = new ArrayList<>();
     }
 
     public String getNombre() {
@@ -69,7 +78,7 @@ public class Articulos extends Productos {
 
     @Override
     public String toString() {
-        return "Articulos{" + "nombre=" + nombre + ", peso=" + peso + ", fechaFabricacion=" + fechaFabricacion + ", listaArticulos=" + listaArticulos + '}';
+        return super.toString()+ "Articulos{" + "nombre=" + nombre + ", peso=" + peso + ", fechaFabricacion=" + fechaFabricacion + ", listaArticulos=" + listaArticulos + '}';
     }
 
     public ArrayList<Articulos> leerArticulo(String idFichero) {
@@ -83,7 +92,7 @@ public class Articulos extends Productos {
         // Inicialización del flujo "datosFichero" en función del archivo llamado "idFichero"
         // Estructura try-with-resources. Permite cerrar los recursos una vez finalizadas
         // las operaciones con el archivo
-        try (Scanner datosFichero = new Scanner(new File(idFichero), "UTF-8")) {
+        try ( Scanner datosFichero = new Scanner(new File(idFichero), "UTF-8")) {
             // hasNextLine devuelve true mientras haya líneas por leer
             while (datosFichero.hasNextLine()) {
                 // Guarda la línea completa en un String

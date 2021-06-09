@@ -6,6 +6,8 @@
 package Prueba;
 
 import clientes.Clientes;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import productos.Articulos;
@@ -26,7 +28,20 @@ public class Prueba {
         //clientes
         Clientes cliente = new Clientes();
         ArrayList<Clientes> listaClientes = cliente.leerCliente("clientes.csv");
-
+        //productos
+        Articulos articulo = new Articulos();
+        Servicios servicio = new Servicios();
+        ArrayList<Articulos> listaArticulos = articulo.leerArticulo("articulos.csv");
+        ArrayList<Servicios> listaServicios = servicio.leerServicio("servicios.csv");
+        ArrayList<Productos> listaProductos = new ArrayList<>();
+        //for para meter los articulos en la lista de productos        
+        for (Productos producto : listaArticulos) {
+            listaProductos.add(producto);
+        }
+        //for para meter los servicios en la lista de productos
+        for (Productos producto : listaServicios) {
+            listaProductos.add(producto);
+        }
         Scanner teclado = new Scanner(System.in);
         int menu = 0;
         do {
@@ -49,7 +64,7 @@ public class Prueba {
                     clientes(listaClientes);
                     break;
                 case 2:
-//                    productos();
+                    productos(listaProductos);
                     break;
             }
         } while (menu != 7);
@@ -167,119 +182,159 @@ public class Prueba {
         }
     }
 
-//    public static void productos() {
-//        //Articulos
-//        Articulos articulo = new Articulos();
-//        ArrayList<Articulos> listaArticulos = articulo.leerArticulo("articulos.csv");
-//        //Servicios
-//        Servicios servicio = new Servicios();
-//        ArrayList<Servicios> listaServicios = servicio.leerServicio("servicios.csv");
-//        Scanner teclado = new Scanner(System.in);
-//
-//        int menuProductos = 0;
-//        //do while para filtrar las operaciones
-//        do {
-//            System.out.println("¿Que operacion desea realizar?\n"
-//                    + "1.Consultar\n2.Modificar\n3.Añadir\n4.Borrar");
-//            menuProductos = teclado.nextInt();
-//        } while (menuProductos < 1 || menuProductos > 4);
-//
-//        //switch para realizar las operaciones elegidas anteriormente
-//        switch (menuProductos) {
-//            case 1:
-//                System.out.println("Ha elegido consultar");
-//                //for para imprimir los clientes
-//                for (Productos p : listaProductos) {
-//                    System.out.println(c);
-//                }
-//                break;
-//            case 2:
-//                System.out.println("Ha elegido modificar");
-//                //for para imprimir los clientes
-//                for (Clientes c : listaProductos) {
-//                    System.out.println(c);
-//                }
-//                System.out.println("¿Que clientes de los anteriores quiere "
-//                        + "modificar?");
-//                teclado.nextLine();
-//                String nifCliente = teclado.nextLine();
-//
-//                int comprobacion = 0;
-//                //for para modificar el cliente
-//                for (Clientes c : listaProductos) {
-//                    //if para comprobar el nombre del cliente
-//                    if (nifCliente.equals(c.getNifCliente())) {
-//                        //se modifica el nombre, apellidos y direccion
-//                        System.out.println("Introduce el nombre:");
-//                        String nombre = teclado.nextLine();
-//                        c.setNombre(nombre);
-//
-//                        System.out.println("Introduce los apellidos:");
-//                        String apellidos = teclado.nextLine();
-//                        c.setApellidos(apellidos);
-//
-//                        System.out.println("Introduce el nif:");
-//                        String nif = teclado.nextLine();
-//                        c.setNifCliente(nif);
-//
-//                        System.out.println("Introduce la direccion:");
-//                        String direccion = teclado.nextLine();
-//                        c.setDireccion(direccion);
-//                        comprobacion = 1;
-//                    }
-//                }
-//                if (comprobacion == 0) {
-//                    System.out.println("No se ha encontrado el cliente");
-//                }
-//                break;
-//            case 3:
-//                System.out.println("Ha elegido añadir");
-//                teclado.nextLine();
-//                System.out.println("Introduce el nombre:");
-//                String nombre = teclado.nextLine();
-//                System.out.println("Introduce los apellidos:");
-//                String apellidos = teclado.nextLine();
-//                System.out.println("Introduce el nif:");
-//                String nif = teclado.nextLine();
-//                System.out.println("Introduce la direccion:");
-//                String direccion = teclado.nextLine();
-//
-//                int nifExist = 0;
-//                //for para comprobar si el dni a meter ya existe
-//                for (Clientes cli : listaProductos) {
-//                    if (nif.equals(cli.getNifCliente())) {
-//                        nifExist = 1;
-//                    }
-//                }
-//                //if para meter el cliente en caso de que el nif no exista
-//                if (nifExist == 0) {
-//                    listaProductos.add(new Clientes(nombre, apellidos, nif, direccion));
-//                    System.out.println("Se ha añadido el cliente");
-//                } else {
-//                    System.out.println("No se ha añadido el cliente");
-//                }
-//
-//                break;
-//            case 4:
-//                System.out.println("Ha elegido borrar");
-//                System.out.println("Escribe el nif del cliente que "
-//                        + "desea borrar");
-//                teclado.nextLine();
-//                String nifrBorrar = teclado.nextLine();
-//                int existecli = 0;
-//                for (Clientes cli : listaProductos) {
-//                    if (nifrBorrar.equals(cli.getNifCliente())) {
-//                        listaProductos.remove(cli);
-//                        existecli = 1;
-//                    }
-//                }
-//                if (existecli == 1) {
-//                    System.out.println("se ha eliminado el cliente");
-//                } else {
-//                    System.out.println("El cliente no existe");
-//                }
-//
-//                break;
-//        }
-//    }
+    public static void productos(ArrayList<Productos> listaProductos) {
+        Scanner teclado = new Scanner(System.in);
+
+        int menuProductos = 0;
+        //do while para filtrar las operaciones
+        do {
+            System.out.println("¿Que operacion desea realizar?\n"
+                    + "1.Consultar\n2.Modificar\n3.Añadir\n4.Borrar");
+            menuProductos = teclado.nextInt();
+        } while (menuProductos < 1 || menuProductos > 4);
+
+        //switch para realizar las operaciones elegidas anteriormente
+        switch (menuProductos) {
+            case 1:
+                System.out.println("Ha elegido consultar");
+                //for para imprimir los productos
+                for (Productos p : listaProductos) {
+                    System.out.println(p);
+                }
+                break;
+            case 2:
+                System.out.println("Ha elegido modificar");
+                //for para imprimir los productos
+                for (Productos c : listaProductos) {
+                    System.out.println(c);
+                }
+                System.out.println("¿Que producto de los anteriores quiere "
+                        + "modificar? 'ID'");
+                teclado.nextLine();
+                String idProducto = teclado.nextLine();
+
+                int comprobacion = 0;
+                //for para modificar el cliente
+                for (Productos p : listaProductos) {
+                    //if para comprobar el id del producto
+                    if (idProducto.equals(p.getIdProducto())) {
+                        //if para saber si es articulo
+                        if (p instanceof Articulos) {
+                            teclado.nextLine();
+                            System.out.println("Introduce el nombre:");
+                            String nombre = teclado.nextLine();
+                            ((Articulos) p).setNombre(nombre);
+
+                            System.out.println("Introduce el peso:");
+                            int peso = teclado.nextInt();
+                            ((Articulos) p).setPeso(peso);
+
+                            System.out.println("Introduce la fecha de fabricacion:");
+                            String fechaFabricacion = teclado.nextLine();
+                            LocalDate fecha = LocalDate.parse(fechaFabricacion);
+                            ((Articulos) p).setFechaFabricacion(fecha);
+                            comprobacion = 1;
+                            //if para saber si es servicio
+                        } else if (p instanceof Servicios) {
+                            System.out.println("Introduce el nombre:");
+                            String nombre = teclado.nextLine();
+                            ((Servicios) p).setNombre(nombre);
+
+                            System.out.println("Introduce las horas:");
+                            int horas = teclado.nextInt();
+                            ((Servicios) p).setHoras(horas);
+
+                            System.out.println("Introduce la fecha de comienzo:");
+                            String fechaComienzo = teclado.nextLine();
+                            LocalDate fechaC = LocalDate.parse(fechaComienzo);
+                            ((Servicios) p).setFechaComienzo(fechaC);
+
+                            System.out.println("Introduce la fecha de fin:");
+                            String fechaFin = teclado.nextLine();
+                            LocalDate fechaF = LocalDate.parse(fechaFin);
+                            ((Servicios) p).setFechaFin(fechaF);
+                            comprobacion = 1;
+                        } else {
+                            System.out.println("ERROR");
+                        }
+                    }
+                }
+                if (comprobacion == 0) {
+                    System.out.println("No se ha encontrado el producto");
+                }
+                break;
+            case 3:
+                System.out.println("Ha elegido añadir");
+                System.out.println("¿Que producto quiere añadir?\n1.Articulo\n2.Servicio");
+                teclado.nextLine();
+                int añadirProducto = teclado.nextInt();
+
+                switch (añadirProducto) {
+                    case 1:
+                        teclado.nextLine();
+                        System.out.println("Introduce el nombre:");
+                        String nombre = teclado.nextLine();
+
+                        System.out.println("Introduce el peso:");
+                        int peso = teclado.nextInt();
+
+                        System.out.println("Introduce la fecha de fabricacion:");
+                        teclado.nextLine();
+                        String fechaFabricacion = teclado.nextLine();
+                        LocalDate fecha = LocalDate.parse(fechaFabricacion);
+
+                        System.out.println("Introduzca el id del producto");
+                        String id = teclado.nextLine();
+
+                        System.out.println("Introduzca el precio del producto");
+                        double precio = teclado.nextDouble();
+                        listaProductos.add(new Articulos(nombre, peso, fecha, id, precio));
+                        break;
+                    case 2:
+                        System.out.println("Introduce el nombre:");
+                        String nombreServicio = teclado.nextLine();
+
+                        System.out.println("Introduce las horas:");
+                        int horas = teclado.nextInt();
+
+                        System.out.println("Introduce la fecha de comienzo:");
+                        String fechaComienzo = teclado.nextLine();
+                        LocalDate fechaC = LocalDate.parse(fechaComienzo);
+
+                        System.out.println("Introduce la fecha de fin:");
+                        String fechaFin = teclado.nextLine();
+                        LocalDate fechaF = LocalDate.parse(fechaFin);
+
+                        System.out.println("Introduzca el id del producto");
+                        String idServicio = teclado.nextLine();
+
+                        System.out.println("Introduzca el precio del producto");
+                        double precioServicio = teclado.nextDouble();
+
+                        listaProductos.add(new Servicios(nombreServicio, horas, fechaC, fechaF, idServicio, precioServicio));
+                        break;
+                }
+
+            case 4:
+                System.out.println("Ha elegido borrar");
+                System.out.println("Escribe el id del producto que "
+                        + "desea borrar");
+                teclado.nextLine();
+                String idBorrar = teclado.nextLine();
+                int existecli = 0;
+                for (Productos p : listaProductos) {
+                    if (idBorrar.equals(p.getIdProducto())) {
+                        listaProductos.remove(p);
+                        existecli = 1;
+                    }
+                }
+                if (existecli == 1) {
+                    System.out.println("se ha eliminado el producto");
+                } else {
+                    System.out.println("El producto no existe");
+                }
+
+                break;
+        }
+    }
 }

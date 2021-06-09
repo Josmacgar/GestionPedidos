@@ -28,13 +28,13 @@ public class Servicios extends Productos {
         listaServicios = new ArrayList<>();
     }
 
-    public Servicios(String nombre, int horas, LocalDate fechaComienzo, LocalDate fechaFin, ArrayList<Servicios> listaServicios, int idProducto, int precio) {
+    public Servicios(String nombre, int horas, LocalDate fechaComienzo, LocalDate fechaFin, String idProducto, double precio) {
         super(idProducto, precio);
         this.nombre = nombre;
         this.horas = horas;
         this.fechaComienzo = fechaComienzo;
         this.fechaFin = fechaFin;
-        this.listaServicios = listaServicios;
+        listaServicios = new ArrayList<>();
     }
 
     public String getNombre() {
@@ -71,7 +71,7 @@ public class Servicios extends Productos {
 
     @Override
     public String toString() {
-        return "Servicios{" + "nombre=" + nombre + ", horas=" + horas + ", fechaComienzo=" + fechaComienzo + ", fechaFin=" + fechaFin + ", listaServicios=" + listaServicios + '}';
+        return super.toString()+ "Servicios{" + "nombre=" + nombre + ", horas=" + horas + ", fechaComienzo=" + fechaComienzo + ", fechaFin=" + fechaFin + ", listaServicios=" + listaServicios + '}';
     }
 
     public ArrayList<Servicios> leerServicio(String idFichero) {
