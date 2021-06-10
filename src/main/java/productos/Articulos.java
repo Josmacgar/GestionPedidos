@@ -78,7 +78,7 @@ public class Articulos extends Productos {
 
     @Override
     public String toString() {
-        return super.toString()+ "Articulos{" + "nombre=" + nombre + ", peso=" + peso + ", fechaFabricacion=" + fechaFabricacion + ", listaArticulos=" + listaArticulos + '}';
+        return super.toString()+ "Articulos{" + "nombre=" + nombre + ", peso=" + peso + ", fechaFabricacion=" + fechaFabricacion +'}';
     }
 
     public ArrayList<Articulos> leerArticulo(String idFichero) {
@@ -101,9 +101,11 @@ public class Articulos extends Productos {
                 // línea en función del carácter separador de campos del fichero CSV
                 Articulos tmp = new Articulos();
                 tokens = linea.split(";");
-                tmp.setNombre(tokens[0]);
-                tmp.setPeso(Integer.parseInt(tokens[1]));
-                tmp.setFechaFabricacion(LocalDate.parse(tokens[2], DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                tmp.setIdProducto(tokens[0]);
+                tmp.setPrecio(Integer.parseInt(tokens[1]));
+                tmp.setNombre(tokens[2]);
+                tmp.setPeso(Integer.parseInt(tokens[3]));
+                tmp.setFechaFabricacion(LocalDate.parse(tokens[4], DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                 listaArticulos.add(tmp);
 //                for (String string : tokens) {
 //                    System.out.print(string + "\t");

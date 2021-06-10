@@ -5,6 +5,7 @@
  */
 package Prueba;
 
+import Almacen.Pedidos;
 import clientes.Clientes;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -42,6 +43,8 @@ public class Prueba {
         for (Productos producto : listaServicios) {
             listaProductos.add(producto);
         }
+        //Pedidos
+        ArrayList<Pedidos> listaPedidos = new ArrayList<>();
         Scanner teclado = new Scanner(System.in);
         int menu = 0;
         do {
@@ -220,7 +223,7 @@ public class Prueba {
                     if (idProducto.equals(p.getIdProducto())) {
                         //if para saber si es articulo
                         if (p instanceof Articulos) {
-                            teclado.nextLine();
+//                            teclado.nextLine();
                             System.out.println("Introduce el nombre:");
                             String nombre = teclado.nextLine();
                             ((Articulos) p).setNombre(nombre);
@@ -230,10 +233,15 @@ public class Prueba {
                             ((Articulos) p).setPeso(peso);
 
                             System.out.println("Introduce la fecha de fabricacion:");
+                            teclado.nextLine();
                             String fechaFabricacion = teclado.nextLine();
                             LocalDate fecha = LocalDate.parse(fechaFabricacion);
                             ((Articulos) p).setFechaFabricacion(fecha);
                             comprobacion = 1;
+
+                            System.out.println("Introduce el precio:");
+                            int precio = teclado.nextInt();
+                            p.setPrecio(precio);
                             //if para saber si es servicio
                         } else if (p instanceof Servicios) {
                             System.out.println("Introduce el nombre:");
@@ -253,6 +261,10 @@ public class Prueba {
                             String fechaFin = teclado.nextLine();
                             LocalDate fechaF = LocalDate.parse(fechaFin);
                             ((Servicios) p).setFechaFin(fechaF);
+
+                            System.out.println("Introduce el precio:");
+                            int precio = teclado.nextInt();
+                            p.setPrecio(precio);
                             comprobacion = 1;
                         } else {
                             System.out.println("ERROR");
@@ -314,6 +326,7 @@ public class Prueba {
                         listaProductos.add(new Servicios(nombreServicio, horas, fechaC, fechaF, idServicio, precioServicio));
                         break;
                 }
+                break;
 
             case 4:
                 System.out.println("Ha elegido borrar");
@@ -337,4 +350,115 @@ public class Prueba {
                 break;
         }
     }
+    
+//    public static void pedidos(ArrayList<Pedidos> listaPedidos) {
+//        //pedidos
+//        Scanner teclado = new Scanner(System.in);
+//
+//        int menuPedidos = 0;
+//        //do while para filtrar las operaciones
+//        do {
+//            System.out.println("¿Que operacion desea realizar?\n"
+//                    + "1.Consultar\n2.Modificar\n3.Añadir\n4.Borrar");
+//            menuPedidos = teclado.nextInt();
+//        } while (menuPedidos < 1 || menuPedidos > 4);
+//
+//        //switch para realizar las operaciones elegidas anteriormente
+//        switch (menuPedidos) {
+//            case 1:
+//                System.out.println("Ha elegido consultar");
+//                //for para imprimir los pedidos
+//                for (Pedidos p : listaPedidos) {
+//                    System.out.println(p);
+//                }
+//                break;
+//            case 2:
+//                System.out.println("Ha elegido modificar");
+//                //for para imprimir los pedidos
+//                for (Pedidos p : listaPedidos) {
+//                    System.out.println(p);
+//                }
+//                System.out.println("¿Que pedido de los anteriores quiere "
+//                        + "modificar?");
+//                teclado.nextLine();
+//                String numeroPedido = teclado.nextLine();
+//
+//                int comprobacion = 0;
+//                //for para modificar el pedido
+//                for (Pedidos p : listaPedidos) {
+//                    //if para comprobar el numero del pedido
+//                    if (numeroPedido.equals(p.getNifCliente())) {
+//                        //se modifica el nombre, apellidos y direccion
+//                        System.out.println("Introduce el nombre:");
+//                        String nombre = teclado.nextLine();
+//                        p.setNombre(nombre);
+//
+//                        System.out.println("Introduce los apellidos:");
+//                        String apellidos = teclado.nextLine();
+//                        p.setApellidos(apellidos);
+//
+//                        System.out.println("Introduce el nif:");
+//                        String nif = teclado.nextLine();
+//                        p.setNifCliente(nif);
+//
+//                        System.out.println("Introduce la direccion:");
+//                        String direccion = teclado.nextLine();
+//                        p.setDireccion(direccion);
+//                        comprobacion = 1;
+//                    }
+//                }
+//                if (comprobacion == 0) {
+//                    System.out.println("No se ha encontrado el cliente");
+//                }
+//                break;
+//            case 3:
+//                System.out.println("Ha elegido añadir");
+//                teclado.nextLine();
+//                System.out.println("Introduce el nombre:");
+//                String nombre = teclado.nextLine();
+//                System.out.println("Introduce los apellidos:");
+//                String apellidos = teclado.nextLine();
+//                System.out.println("Introduce el nif:");
+//                String nif = teclado.nextLine();
+//                System.out.println("Introduce la direccion:");
+//                String direccion = teclado.nextLine();
+//
+//                int nifExist = 0;
+//                //for para comprobar si el dni a meter ya existe
+//                for (Clientes cli : listaPedidos) {
+//                    if (nif.equals(cli.getNifCliente())) {
+//                        nifExist = 1;
+//                    }
+//                }
+//                //if para meter el cliente en caso de que el nif no exista
+//                if (nifExist == 0) {
+//                    listaPedidos.add(new Clientes(nombre, apellidos, nif, direccion));
+//                    System.out.println("Se ha añadido el cliente");
+//                } else {
+//                    System.out.println("No se ha añadido el cliente");
+//                }
+//
+//                break;
+//            case 4:
+//                System.out.println("Ha elegido borrar");
+//                System.out.println("Escribe el nif del cliente que "
+//                        + "desea borrar");
+//                teclado.nextLine();
+//                String nifrBorrar = teclado.nextLine();
+//                int existecli = 0;
+//                for (Clientes cli : listaPedidos) {
+//                    if (nifrBorrar.equals(cli.getNifCliente())) {
+//                        listaPedidos.remove(cli);
+//                        existecli = 1;
+//                    }
+//                }
+//                if (existecli == 1) {
+//                    System.out.println("se ha eliminado el cliente");
+//                } else {
+//                    System.out.println("El cliente no existe");
+//                }
+//
+//                break;
+//        }
+//    }
 }

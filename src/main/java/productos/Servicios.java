@@ -94,10 +94,12 @@ public class Servicios extends Productos {
                 // línea en función del carácter separador de campos del fichero CSV
                 Servicios tmp = new Servicios();
                 tokens = linea.split(";");
-                tmp.setNombre(tokens[0]);
-                tmp.setHoras(Integer.parseInt(tokens[1]));
-                tmp.setFechaComienzo(LocalDate.parse(tokens[2], DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-                tmp.setFechaFin(LocalDate.parse(tokens[3], DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                tmp.setIdProducto(tokens[0]);
+                tmp.setPrecio(Integer.parseInt(tokens[1]));
+                tmp.setNombre(tokens[2]);
+                tmp.setHoras(Integer.parseInt(tokens[3]));
+                tmp.setFechaComienzo(LocalDate.parse(tokens[4], DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                tmp.setFechaFin(LocalDate.parse(tokens[5], DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                 listaServicios.add(tmp);
 //                for (String string : tokens) {
 //                    System.out.print(string + "\t");

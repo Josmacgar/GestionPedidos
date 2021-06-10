@@ -5,6 +5,7 @@
  */
 package Almacen;
 
+import clientes.Clientes;
 import productos.Productos;
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ public class Empresa {
 
     private final String NIF;
     private final String NOMBREEMPRESA;
-    ArrayList<String> listaClientes;
+    ArrayList<Clientes> listaClientes;
     ArrayList<Productos> listaProductos;
     ArrayList<Pedidos> listaPedidos;
 
