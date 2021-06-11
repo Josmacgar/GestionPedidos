@@ -78,7 +78,7 @@ public class Articulos extends Productos {
 
     @Override
     public String toString() {
-        return super.toString()+ "Articulos{" + "nombre=" + nombre + ", peso=" + peso + ", fechaFabricacion=" + fechaFabricacion +'}';
+        return "-Articulos-->" + "nombre:" + nombre + ", peso:" + peso + ", fechaFabricacion:" + fechaFabricacion+", "+super.toString();
     }
 
     public ArrayList<Articulos> leerArticulo(String idFichero) {

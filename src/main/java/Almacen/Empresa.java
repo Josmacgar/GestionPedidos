@@ -17,6 +17,8 @@ public class Empresa {
 
     private final String NIF;
     private final String NOMBREEMPRESA;
+    private String direccionEmpresa;
+    private int telefono;
     ArrayList<Clientes> listaClientes;
     ArrayList<Productos> listaProductos;
     ArrayList<Pedidos> listaPedidos;
@@ -24,10 +26,16 @@ public class Empresa {
     public Empresa() {
         this.NIF = "46587744";
         this.NOMBREEMPRESA = "machoFish";
+        this.direccionEmpresa="Calvario Nº 12 ";
+        this.telefono=359411223;
         this.listaClientes = new ArrayList<>();
         this.listaProductos = new ArrayList<>();
         this.listaPedidos = new ArrayList<>();
     }
+
+    @Override
+    public String toString() {
+ return "----------------------\n"+NOMBREEMPRESA+"\n"+ direccionEmpresa+"\n"+telefono+"\n----------------------" ; }
     
 
 }

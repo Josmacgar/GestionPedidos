@@ -5,8 +5,16 @@
  */
 package Almacen;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Random;
+import productos.ProductoNombreCantidad;
+import productos.Productos;
 
 /**
  *
@@ -14,8 +22,20 @@ import java.util.Random;
  */
 public class Pedidos {
 
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate fechaPedido;
     private String numeroPedido;
+    private String nomCliente;
+    private Empresa empresa;
+    private String tipoPago;
+    private ArrayList<ProductoNombreCantidad> lista = new ArrayList<>();
+    private String dirCliente;
+
+    public void setDirCliente(String dirCliente) {
+        this.dirCliente = dirCliente;
+    }
 
     public Pedidos() {
     }
@@ -25,10 +45,11 @@ public class Pedidos {
         this.numeroPedido = numeroPedido;
     }
 
-    public void crearNumeroPedido() {
+    public String crearNumeroPedido() {
         Random random = new Random();
         int aleatorio = random.nextInt(9999 - 1000 + 1) + 1000;
-        this.numeroPedido = String.valueOf(aleatorio) + "/" + LocalDate.now().getYear();
+        String numPedido = String.valueOf(aleatorio) + "/" + LocalDate.now().getYear();
+        return numPedido;
     }
 
     public LocalDate getFechaPedido() {
@@ -47,11 +68,47 @@ public class Pedidos {
         this.numeroPedido = numeroPedido;
     }
 
-    @Override
-    public String toString() {
-        return "Pedidos{" + "fechaPedido=" + fechaPedido + ", numeroPedido=" + numeroPedido + '}';
+    public String getNomCliente() {
+        return nomCliente;
     }
 
+    public void setNomCliente(String nomCliente) {
+        this.nomCliente = nomCliente;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+    
+
+    public String getTipoPago() {
+        return tipoPago;
+    }
+
+    public void setTipoPago(String tipoPago) {
+        this.tipoPago = tipoPago;
+    }
+
+    public ArrayList<ProductoNombreCantidad> getLista() {
+        return lista;
+    }
+
+    public void setLista(ArrayList<ProductoNombreCantidad> lista) {
+        this.lista = lista;
+    }
+
+    @Override
+    public String toString() {
+        return empresa+"\n"+"Fecha: "+fechaPedido+"\n"+"Cliente: "+nomCliente+"\t\t"+
+                "Nº "+numeroPedido+"\n" +"Direccion del cliente: "+dirCliente+"\n"+
+                lista+"\n"+"Forma de pago: "+tipoPago;
+               
+    }
+    //return "Pedidos{" + "fechaPedido=" + fechaPedido + ", numeroPedido=" + numeroPedido + ", nomCliente=" + nomCliente + ", empresa=" + empresa + ", tipoPago=" + tipoPago + ", dirCliente=" + dirCliente + ", lista=" + lista + '}';
 
 
 }

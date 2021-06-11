@@ -5,6 +5,7 @@
  */
 package Prueba;
 
+import Almacen.Empresa;
 import Almacen.Pedidos;
 import clientes.Clientes;
 import java.time.LocalDate;
@@ -14,6 +15,8 @@ import java.util.Scanner;
 import productos.Articulos;
 import productos.Productos;
 import productos.Servicios;
+import java.time.LocalDate;
+import productos.ProductoNombreCantidad;
 
 /**
  *
@@ -45,6 +48,7 @@ public class Prueba {
         }
         //Pedidos
         ArrayList<Pedidos> listaPedidos = new ArrayList<>();
+
         Scanner teclado = new Scanner(System.in);
         int menu = 0;
         do {
@@ -68,6 +72,9 @@ public class Prueba {
                     break;
                 case 2:
                     productos(listaProductos);
+                    break;
+                case 3:
+                    pedidos(listaPedidos, listaClientes, listaProductos);
                     break;
             }
         } while (menu != 7);
@@ -350,29 +357,31 @@ public class Prueba {
                 break;
         }
     }
-    
-//    public static void pedidos(ArrayList<Pedidos> listaPedidos) {
-//        //pedidos
-//        Scanner teclado = new Scanner(System.in);
-//
-//        int menuPedidos = 0;
-//        //do while para filtrar las operaciones
-//        do {
-//            System.out.println("¿Que operacion desea realizar?\n"
-//                    + "1.Consultar\n2.Modificar\n3.Añadir\n4.Borrar");
-//            menuPedidos = teclado.nextInt();
-//        } while (menuPedidos < 1 || menuPedidos > 4);
-//
-//        //switch para realizar las operaciones elegidas anteriormente
-//        switch (menuPedidos) {
-//            case 1:
-//                System.out.println("Ha elegido consultar");
-//                //for para imprimir los pedidos
-//                for (Pedidos p : listaPedidos) {
-//                    System.out.println(p);
-//                }
-//                break;
-//            case 2:
+
+    public static void pedidos(ArrayList<Pedidos> listaPedidos, ArrayList<Clientes> listaClientes, ArrayList<Productos> listaProductos) {
+        //pedidos
+        Scanner teclado = new Scanner(System.in);
+        Pedidos pedido = new Pedidos();
+        Empresa empresa = new Empresa();
+        ProductoNombreCantidad productoNombre = new ProductoNombreCantidad();
+        int menuPedidos = 0;
+        //do while para filtrar las operaciones
+        do {
+            System.out.println("¿Que operacion desea realizar?\n"
+                    + "1.Consultar\n2.Modificar\n3.Añadir\n4.Borrar");
+            menuPedidos = teclado.nextInt();
+        } while (menuPedidos < 1 || menuPedidos > 4);
+
+        //switch para realizar las operaciones elegidas anteriormente
+        switch (menuPedidos) {
+            case 1:
+                System.out.println("Ha elegido consultar");
+                //for para imprimir los pedidos
+                for (Pedidos p : listaPedidos) {
+                    System.out.println(p);
+                }
+                break;
+            case 2:
 //                System.out.println("Ha elegido modificar");
 //                //for para imprimir los pedidos
 //                for (Pedidos p : listaPedidos) {
@@ -411,35 +420,65 @@ public class Prueba {
 //                    System.out.println("No se ha encontrado el cliente");
 //                }
 //                break;
-//            case 3:
-//                System.out.println("Ha elegido añadir");
-//                teclado.nextLine();
-//                System.out.println("Introduce el nombre:");
-//                String nombre = teclado.nextLine();
-//                System.out.println("Introduce los apellidos:");
-//                String apellidos = teclado.nextLine();
-//                System.out.println("Introduce el nif:");
-//                String nif = teclado.nextLine();
-//                System.out.println("Introduce la direccion:");
-//                String direccion = teclado.nextLine();
-//
-//                int nifExist = 0;
-//                //for para comprobar si el dni a meter ya existe
-//                for (Clientes cli : listaPedidos) {
-//                    if (nif.equals(cli.getNifCliente())) {
-//                        nifExist = 1;
-//                    }
-//                }
-//                //if para meter el cliente en caso de que el nif no exista
-//                if (nifExist == 0) {
-//                    listaPedidos.add(new Clientes(nombre, apellidos, nif, direccion));
-//                    System.out.println("Se ha añadido el cliente");
-//                } else {
-//                    System.out.println("No se ha añadido el cliente");
-//                }
-//
-//                break;
-//            case 4:
+            case 3:
+                System.out.println("Ha elegido añadir");
+                teclado.nextLine();
+                //se le asigna un numero de pedido
+                pedido.setNumeroPedido(pedido.crearNumeroPedido());
+                //se le asigna la empresa
+                pedido.setEmpresa(empresa);
+                //se muestran todos los clientes
+                for (Clientes cli : listaClientes) {
+                    System.out.println(cli);
+                }
+                System.out.println("Elige uno de los clientes anteriores");
+                String nifCliente = teclado.nextLine();
+
+                //for para comprobar si el dni ya existe
+                for (Clientes cli : listaClientes) {
+                    if (nifCliente.equals(cli.getNifCliente())) {
+                        pedido.setNomCliente(cli.getNombre() + "," + cli.getApellidos());
+                        pedido.setDirCliente(cli.getDireccion());
+                    }
+                }
+                //se le pone la fecha de hoy al pedido
+                pedido.setFechaPedido(LocalDate.now());
+                //se configura el tipo de pago
+                String tipoPago;
+                do {
+                    System.out.println("Introduce el tipo de pago");
+                    tipoPago = teclado.nextLine();
+                } while (!tipoPago.equalsIgnoreCase("tarjeta") && !tipoPago.equalsIgnoreCase("transferencia"));
+                pedido.setTipoPago(tipoPago);
+                //se selecciona los articulos que se quieran añadir al pedido
+                for (Productos producto : listaProductos) {
+                    System.out.println(producto);
+                }
+                //lista para añadir los productos con solo nombre y cantidad
+                ArrayList<ProductoNombreCantidad> listaNombre = new ArrayList<>();
+                String respuesta;
+                //do while para meter los productos que queramos
+//                do {
+//                    System.out.println("Introduce el nombre del producto");
+//                    String nombre = teclado.nextLine();
+//                    productoNombre.setNombre(nombre);
+//                    System.out.println("Introduce la cantidad del producto");
+//                    int cantidad = teclado.nextInt();
+//                    productoNombre.setCantidad(cantidad);
+//                    listaNombre.add(productoNombre);
+//                    System.out.println("¿Añadir mas productos? si/no");
+//                    teclado.nextLine();
+//                    respuesta = teclado.nextLine();
+//                } while (respuesta.equalsIgnoreCase("si"));
+                productoNombre.setNombre("pepa pig");
+                productoNombre.setCantidad(12);
+                productoNombre.setNombre("rinoceronte");
+                productoNombre.setCantidad(21);
+                listaNombre.add(productoNombre);
+                pedido.setLista(listaNombre);
+                listaPedidos.add(pedido);
+                break;
+            case 4:
 //                System.out.println("Ha elegido borrar");
 //                System.out.println("Escribe el nif del cliente que "
 //                        + "desea borrar");
@@ -459,6 +498,6 @@ public class Prueba {
 //                }
 //
 //                break;
-//        }
-//    }
+        }
+    }
 }
