@@ -8,6 +8,12 @@ package Prueba;
 import Almacen.Empresa;
 import Almacen.Pedidos;
 import clientes.Clientes;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -16,6 +22,7 @@ import productos.Articulos;
 import productos.Productos;
 import productos.Servicios;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import productos.ProductoNombreCantidad;
 
 /**
@@ -24,11 +31,11 @@ import productos.ProductoNombreCantidad;
  */
 public class Prueba {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         menu();
     }
 
-    public static void menu() { //original
+    public static void menu() throws IOException { //original
         //clientes
         Clientes cliente = new Clientes();
         ArrayList<Clientes> listaClientes = cliente.leerCliente("clientes.csv");
@@ -76,6 +83,13 @@ public class Prueba {
                 case 3:
                     pedidos(listaPedidos, listaClientes, listaProductos);
                     break;
+                case 4:
+                    imprimirPedido(listaPedidos);
+                    break;
+                case 5:
+                    generarBackup(listaPedidos);
+                    break;
+
             }
         } while (menu != 7);
 
@@ -382,44 +396,48 @@ public class Prueba {
                 }
                 break;
             case 2:
-//                System.out.println("Ha elegido modificar");
-//                //for para imprimir los pedidos
-//                for (Pedidos p : listaPedidos) {
-//                    System.out.println(p);
-//                }
-//                System.out.println("¿Que pedido de los anteriores quiere "
-//                        + "modificar?");
-//                teclado.nextLine();
-//                String numeroPedido = teclado.nextLine();
-//
-//                int comprobacion = 0;
-//                //for para modificar el pedido
-//                for (Pedidos p : listaPedidos) {
-//                    //if para comprobar el numero del pedido
-//                    if (numeroPedido.equals(p.getNifCliente())) {
-//                        //se modifica el nombre, apellidos y direccion
-//                        System.out.println("Introduce el nombre:");
-//                        String nombre = teclado.nextLine();
-//                        p.setNombre(nombre);
-//
-//                        System.out.println("Introduce los apellidos:");
-//                        String apellidos = teclado.nextLine();
-//                        p.setApellidos(apellidos);
-//
-//                        System.out.println("Introduce el nif:");
-//                        String nif = teclado.nextLine();
-//                        p.setNifCliente(nif);
-//
-//                        System.out.println("Introduce la direccion:");
-//                        String direccion = teclado.nextLine();
-//                        p.setDireccion(direccion);
-//                        comprobacion = 1;
-//                    }
-//                }
-//                if (comprobacion == 0) {
-//                    System.out.println("No se ha encontrado el cliente");
-//                }
-//                break;
+                System.out.println("Ha elegido modificar");
+                //for para imprimir los pedidos
+                for (Pedidos p : listaPedidos) {
+                    System.out.println(p);
+                }
+                System.out.println("¿Que pedido de los anteriores quiere "
+                        + "modificar?");
+                teclado.nextLine();
+                String numeroPedido = teclado.nextLine();
+
+                int comprobacion = 0;
+                //for para modificar el pedido
+                for (Pedidos p : listaPedidos) {
+                    //if para comprobar el numero del pedido
+                    if (numeroPedido.equals(p.getNumeroPedido())) {
+                        //se modifica el nombre,tipo de pago y la lista de productos
+                        System.out.println("Introduce el nif del cliente:");
+                        String nifCli = teclado.nextLine();
+                        for (Clientes c : listaClientes) {
+                            //if para comprobar el nombre del cliente
+                            if (nifCli.equals(c.getNifCliente())) {
+                                p.setNomCliente(c.getNombre() + "," + c.getApellidos());
+                                p.setDirCliente(c.getDireccion());
+                            }
+                        }
+
+                        //se modifica el tipo de pago
+                        String tipoPago;
+                        do {
+                            System.out.println("Introduce el tipo de pago");
+                            tipoPago = teclado.nextLine();
+                        } while (!tipoPago.equalsIgnoreCase("tarjeta") && !tipoPago.equalsIgnoreCase("transferencia"));
+                        pedido.setTipoPago(tipoPago);
+
+                        //modificar lista de productos
+                        p.getLista().forEach(System.out::println);
+                    }
+                }
+                if (comprobacion == 0) {
+                    System.out.println("No se ha encontrado el cliente");
+                }
+                break;
             case 3:
                 System.out.println("Ha elegido añadir");
                 teclado.nextLine();
@@ -470,34 +488,89 @@ public class Prueba {
 //                    teclado.nextLine();
 //                    respuesta = teclado.nextLine();
 //                } while (respuesta.equalsIgnoreCase("si"));
-                productoNombre.setNombre("pepa pig");
-                productoNombre.setCantidad(12);
+
                 productoNombre.setNombre("rinoceronte");
                 productoNombre.setCantidad(21);
+                productoNombre.setNombre("pepa pig");
+                productoNombre.setCantidad(12);
                 listaNombre.add(productoNombre);
                 pedido.setLista(listaNombre);
                 listaPedidos.add(pedido);
                 break;
             case 4:
-//                System.out.println("Ha elegido borrar");
-//                System.out.println("Escribe el nif del cliente que "
-//                        + "desea borrar");
-//                teclado.nextLine();
-//                String nifrBorrar = teclado.nextLine();
-//                int existecli = 0;
-//                for (Clientes cli : listaPedidos) {
-//                    if (nifrBorrar.equals(cli.getNifCliente())) {
-//                        listaPedidos.remove(cli);
-//                        existecli = 1;
-//                    }
-//                }
-//                if (existecli == 1) {
-//                    System.out.println("se ha eliminado el cliente");
-//                } else {
-//                    System.out.println("El cliente no existe");
-//                }
-//
-//                break;
+                System.out.println("Ha elegido borrar");
+                System.out.println("Escribe el numero del pedido que "
+                        + "desea borrar");
+                teclado.nextLine();
+                String pedidoBorrar = teclado.nextLine();
+                int existecli = 0;
+                for (Pedidos p : listaPedidos) {
+                    if (pedidoBorrar.equals(p.getNumeroPedido())) {
+                        listaPedidos.remove(p);
+                        existecli = 1;
+                    }
+                }
+                if (existecli == 1) {
+                    System.out.println("se ha eliminado el pedido");
+                } else {
+                    System.out.println("El pedido no existe");
+                }
+
+                break;
         }
     }
-}
+
+    public static void imprimirPedido(ArrayList<Pedidos> listaPedidos) {
+
+        // Fichero a crear. Ruta relativa a la carpeta raíz del proyecto
+        String idFichero = "imprimirPedido.txt";
+        String tmp;
+
+        // Si se utiliza el constructor FileWriter(idFichero, true) entonces se anexa información
+        // al final del fichero idFichero
+        // Estructura try-with-resources. Instancia el objeto con el fichero a escribir
+        // y se encarga de cerrar el recurso "flujo" una vez finalizadas las operaciones
+        try ( BufferedWriter flujo = new BufferedWriter(new FileWriter(idFichero))) {
+            for (Pedidos listaPedido : listaPedidos) {
+                flujo.write(listaPedido.toString());
+            }
+            // Metodo fluh() guarda cambios en disco 
+            flujo.flush();
+            System.out.println("Fichero " + idFichero + " creado correctamente.");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public static void generarBackup(ArrayList<Pedidos> listaPedidos) throws IOException {
+        //metodo que crea un directorio con la fecha y la hora actual
+        crearCarpeta();
+        ObjectMapper mapeador = new ObjectMapper();
+
+        mapeador.configure(SerializationFeature.INDENT_OUTPUT, true);
+
+        //crearcarpeta devuelve la ruta del directorio creado
+        mapeador.writeValue(new File("./backup/"+crearCarpeta()+"/backup.json"), listaPedidos);
+    }
+
+    //metodo que crea un directorio con la fecha y la hora actual
+    public static String crearCarpeta() {
+        //datos para la fecha y la hora
+        LocalDateTime locaDate = LocalDateTime.now();
+        int horas = locaDate.getHour();
+        int minutos = locaDate.getMinute();
+        //String que se le pasa al crear el directorio
+        String datos = String.valueOf(LocalDate.now() + "-" + String.valueOf(horas) + String.valueOf(minutos));
+        //se crea el directorio
+        File directorios = new File("./backup/" + datos);
+        if (!directorios.exists()) {
+            if (directorios.mkdirs()) {
+                System.out.println("Directorio creado");
+            } else {
+                System.out.println("Error al crear el directorio");
+            }
+        }
+        return datos;
+    }
+    }

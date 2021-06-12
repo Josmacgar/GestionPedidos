@@ -83,7 +83,6 @@ public class Pedidos {
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
     }
-    
 
     public String getTipoPago() {
         return tipoPago;
@@ -103,12 +102,23 @@ public class Pedidos {
 
     @Override
     public String toString() {
-        return empresa+"\n"+"Fecha: "+fechaPedido+"\n"+"Cliente: "+nomCliente+"\t\t"+
-                "Nº "+numeroPedido+"\n" +"Direccion del cliente: "+dirCliente+"\n"+
-                lista+"\n"+"Forma de pago: "+tipoPago;
-               
+        return empresa + "\n" + "Fecha: " + fechaPedido + "\n" + "Cliente: " + nomCliente + "\t\t"
+                + "Nº " + numeroPedido + "\n" + "Direccion del cliente: " + dirCliente + "\n"
+                + lista + "\n" + "Forma de pago: " + tipoPago+"\n--------------------------";
+
+    }
+
+    public String imprimirLista() {
+        String prueba ="nombre\tcantidad";
+        if (!lista.isEmpty()) {
+            for (ProductoNombreCantidad productoNombreCantidad : lista) {
+               prueba+= productoNombreCantidad.getNombre()+productoNombreCantidad.getCantidad();
+            }
+        }else{
+            return null;
+        }
+        return prueba;
     }
     //return "Pedidos{" + "fechaPedido=" + fechaPedido + ", numeroPedido=" + numeroPedido + ", nomCliente=" + nomCliente + ", empresa=" + empresa + ", tipoPago=" + tipoPago + ", dirCliente=" + dirCliente + ", lista=" + lista + '}';
-
 
 }

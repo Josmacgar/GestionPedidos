@@ -87,7 +87,6 @@ public class Articulos extends Productos {
         String[] tokens;
         String linea;
 
-        System.out.println("Leyendo el fichero: " + idFichero);
 
         // Inicialización del flujo "datosFichero" en función del archivo llamado "idFichero"
         // Estructura try-with-resources. Permite cerrar los recursos una vez finalizadas
@@ -110,7 +109,6 @@ public class Articulos extends Productos {
 //                for (String string : tokens) {
 //                    System.out.print(string + "\t");
 //                }
-                System.out.println();
             }
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
