@@ -23,7 +23,10 @@ import productos.Productos;
 import productos.Servicios;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.StringTokenizer;
+import productos.ArticulosCantidad;
 import productos.ProductoNombreCantidad;
+import productos.ServiciosCantidad;
 
 /**
  *
@@ -81,13 +84,16 @@ public class Prueba {
                     productos(listaProductos);
                     break;
                 case 3:
-                    pedidos(listaPedidos, listaClientes, listaProductos);
+                    pedidos(listaPedidos, listaClientes, listaProductos, listaArticulos, listaServicios);
                     break;
                 case 4:
                     imprimirPedido(listaPedidos);
                     break;
                 case 5:
                     generarBackup(listaPedidos);
+                    break;
+                case 6:
+                    restaurarCopia();
                     break;
 
             }
@@ -372,7 +378,8 @@ public class Prueba {
         }
     }
 
-    public static void pedidos(ArrayList<Pedidos> listaPedidos, ArrayList<Clientes> listaClientes, ArrayList<Productos> listaProductos) {
+    public static void pedidos(ArrayList<Pedidos> listaPedidos, ArrayList<Clientes> listaClientes, ArrayList<Productos> listaProductos, ArrayList<Articulos> listaArticulos,
+            ArrayList<Servicios> listaServicios) {
         //pedidos
         Scanner teclado = new Scanner(System.in);
         Pedidos pedido = new Pedidos();
@@ -434,7 +441,7 @@ public class Prueba {
                         pedido.setTipoPago(tipoPago);
 
                         //modificar lista de productos
-                        p.getLista().forEach(System.out::println);
+//                        p.getLista().forEach(System.out::println);
                     }
                 }
                 if (comprobacion == 0) {
@@ -475,44 +482,68 @@ public class Prueba {
                 for (Productos producto : listaProductos) {
                     System.out.println(producto);
                 }
-                //lista para añadir los productos con solo nombre y cantidad
-                ArrayList<ProductoNombreCantidad> listaNombre = new ArrayList<>();
-                String respuesta;
-                //do while para meter los productos que queramos
-//                do {
-//                    System.out.println("Introduce el nombre del producto");
-//                    String nombre = teclado.nextLine();
-//                    productoNombre.setNombre(nombre);
-//                    System.out.println("Introduce la cantidad del producto");
-//                    int cantidad = teclado.nextInt();
-//                    productoNombre.setCantidad(cantidad);
-//                    listaNombre.add(productoNombre);
-//                    System.out.println("¿Añadir mas productos? si/no");
-//                    teclado.nextLine();
-//                    respuesta = teclado.nextLine();
-//                } while (respuesta.equalsIgnoreCase("si"));
+                //listas para añadir los productos
+                int salir = 0;
+                ArrayList<ArticulosCantidad> articuloPedido = new ArrayList<>();
+                ArrayList<ServiciosCantidad> servicioPedido = new ArrayList<>();
 
-                productoNombre.setNombre("rinoceronte");
-                productoNombre.setCantidad(21);
-                productoNombre.setNombre("pepa pig");
-                productoNombre.setCantidad(12);
-                listaNombre.add(productoNombre);
-                pedido.setLista(listaNombre);
+                do {
+                    salir = 0;
+                    System.out.println("Elige un producto de la lista por su id");
+                    String producto = teclado.nextLine();
+                    //for para añadir productos dependiendo si son artiulos o servicios
+                    for (Productos p : listaProductos) {
+                        if (p instanceof Articulos) {
+                            if (p.getIdProducto().equals(producto)) {
+                                ArticulosCantidad articuloP = new ArticulosCantidad();
+                                articuloP.setArticulo((Articulos) p);
+                                System.out.println("Indica la cantidad: ");
+                                int cantidad = teclado.nextInt();
+                                articuloP.setCantidad(cantidad);
+                                articuloPedido.add(articuloP);
+                            } else {
+                                System.out.println("No encontrado");
+                            }
+                        } else if (p instanceof Servicios) {
+                            if (p.getIdProducto().equals(producto)) {
+                                ServiciosCantidad servicioP = new ServiciosCantidad();
+                                servicioP.setServicio((Servicios) p);
+                                System.out.println("Indica la cantidad: ");
+                                int cantidad = teclado.nextInt();
+                                servicioP.setCantidad(cantidad);
+                                servicioPedido.add(servicioP);
+                            } else {
+                                System.out.println("No se ha encontrado");
+                            }
+                        }
+                    }
+                    System.out.println("¿Añadir otro producto? si/no");
+                    teclado.nextLine();
+                    String salida = teclado.nextLine();
+                    if (salida.equalsIgnoreCase("Si")) {
+                        salir = 1;
+                    }
+                } while (salir == 1);
+                pedido.setArticuloCantidad(articuloPedido);
+                pedido.setServicioCantidad(servicioPedido);
                 listaPedidos.add(pedido);
                 break;
             case 4:
                 System.out.println("Ha elegido borrar");
+                for (Pedidos p : listaPedidos) {
+                    System.out.println(p);
+                }
                 System.out.println("Escribe el numero del pedido que "
                         + "desea borrar");
                 teclado.nextLine();
                 String pedidoBorrar = teclado.nextLine();
                 int numeroBorrar = 0;
-                int existPedido=0;
+                int existPedido = 0;
                 for (int i = 0; i < listaPedidos.size(); i++) {
                     if (pedidoBorrar.equals(listaPedidos.get(i).getNumeroPedido())) {
-                        
+
                         numeroBorrar = i;
-                        existPedido=1;
+                        existPedido = 1;
                     }
                 }
                 listaPedidos.remove(numeroBorrar);
@@ -579,5 +610,23 @@ public class Prueba {
             }
         }
         return datos;
+    }
+
+    public static void restaurarCopia() {
+        System.out.println("Ha elegido restaurar copia de seguridad");
+        mostrarCarpetas();
+    }
+
+    public static void mostrarCarpetas() {
+        File carpeta = new File("./backup");
+        String[] listado = carpeta.list();
+        if (listado == null || listado.length == 0) {
+            System.out.println("No hay elementos dentro de la carpeta actual");
+            return;
+        } else {
+            for (int i = 0; i < listado.length; i++) {
+                System.out.println(listado[i]);
+            }
+        }
     }
 }

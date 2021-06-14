@@ -3,9 +3,15 @@ machoFish
 Calvario Nº 12 
 359411223
 --------------------------
-Fecha: 2021-06-12
-Cliente: Pascual,Mingolla		Nº 5281/2021
-Direccion del cliente: farola,4
-[nombre:pepa pig	 cantidad:12]
-Forma de pago: transferencia
+Fecha: 2021-06-14
+Cliente: Alejandro,Moreno		Nº 2501/2021
+Direccion del cliente: calvario,31
+[Productos
+pantalon--> 1unidades--> 78.0€.
+--------------------------------------------
+][Servicios
+masterclass--> 1unidades--> 21.0€.
+--------------------------------------------
+]
+Forma de pago: tarjeta
 --------------------------

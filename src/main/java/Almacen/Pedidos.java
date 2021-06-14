@@ -13,8 +13,10 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
+import productos.ArticulosCantidad;
 import productos.ProductoNombreCantidad;
 import productos.Productos;
+import productos.ServiciosCantidad;
 
 /**
  *
@@ -30,12 +32,11 @@ public class Pedidos {
     private String nomCliente;
     private Empresa empresa;
     private String tipoPago;
-    private ArrayList<ProductoNombreCantidad> lista = new ArrayList<>();
+    private ArrayList<ArticulosCantidad> articuloCantidad = new ArrayList<>();
+    private ArrayList<ServiciosCantidad> servicioCantidad = new ArrayList<>();
     private String dirCliente;
 
-    public void setDirCliente(String dirCliente) {
-        this.dirCliente = dirCliente;
-    }
+
 
     public Pedidos() {
     }
@@ -92,33 +93,38 @@ public class Pedidos {
         this.tipoPago = tipoPago;
     }
 
-    public ArrayList<ProductoNombreCantidad> getLista() {
-        return lista;
+    public ArrayList<ArticulosCantidad> getArticuloCantidad() {
+        return articuloCantidad;
     }
 
-    public void setLista(ArrayList<ProductoNombreCantidad> lista) {
-        this.lista = lista;
+    public void setArticuloCantidad(ArrayList<ArticulosCantidad> articuloCantidad) {
+        this.articuloCantidad = articuloCantidad;
     }
+
+    public ArrayList<ServiciosCantidad> getServicioCantidad() {
+        return servicioCantidad;
+    }
+
+    public void setServicioCantidad(ArrayList<ServiciosCantidad> servicioCantidad) {
+        this.servicioCantidad = servicioCantidad;
+    }
+
+    public String getDirCliente() {
+        return dirCliente;
+    }
+
+    public void setDirCliente(String dirCliente) {
+        this.dirCliente = dirCliente;
+    }
+
+
 
     @Override
     public String toString() {
         return empresa + "\n" + "Fecha: " + fechaPedido + "\n" + "Cliente: " + nomCliente + "\t\t"
                 + "Nº " + numeroPedido + "\n" + "Direccion del cliente: " + dirCliente + "\n"
-                + lista + "\n" + "Forma de pago: " + tipoPago+"\n--------------------------";
+                + articuloCantidad + servicioCantidad + "\n" + "Forma de pago: " + tipoPago+"\n--------------------------";
 
     }
-
-    public String imprimirLista() {
-        String prueba ="nombre\tcantidad";
-        if (!lista.isEmpty()) {
-            for (ProductoNombreCantidad productoNombreCantidad : lista) {
-               prueba+= productoNombreCantidad.getNombre()+productoNombreCantidad.getCantidad();
-            }
-        }else{
-            return null;
-        }
-        return prueba;
-    }
-    //return "Pedidos{" + "fechaPedido=" + fechaPedido + ", numeroPedido=" + numeroPedido + ", nomCliente=" + nomCliente + ", empresa=" + empresa + ", tipoPago=" + tipoPago + ", dirCliente=" + dirCliente + ", lista=" + lista + '}';
 
 }

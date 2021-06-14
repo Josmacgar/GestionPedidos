@@ -1,5 +1,7 @@
 productos\Articulos.class
+productos\ServiciosCantidad.class
 clientes\Clientes.class
+productos\ArticulosCantidad.class
 Almacen\Empresa.class
 Almacen\Prueba.class
 productos\Servicios.class
