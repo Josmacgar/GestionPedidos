@@ -412,6 +412,9 @@ public class Prueba {
                     //if para comprobar el numero del pedido
                     if (numeroPedido.equals(p.getNumeroPedido())) {
                         //se modifica el nombre,tipo de pago y la lista de productos
+                        for (Clientes cli : listaClientes) {
+                            System.out.println(cli);
+                        }
                         System.out.println("Introduce el nif del cliente:");
                         String nifCli = teclado.nextLine();
                         for (Clientes c : listaClientes) {
@@ -503,14 +506,18 @@ public class Prueba {
                         + "desea borrar");
                 teclado.nextLine();
                 String pedidoBorrar = teclado.nextLine();
-                int existecli = 0;
-                for (Pedidos p : listaPedidos) {
-                    if (pedidoBorrar.equals(p.getNumeroPedido())) {
-                        listaPedidos.remove(p);
-                        existecli = 1;
+                int numeroBorrar = 0;
+                int existPedido=0;
+                for (int i = 0; i < listaPedidos.size(); i++) {
+                    if (pedidoBorrar.equals(listaPedidos.get(i).getNumeroPedido())) {
+                        
+                        numeroBorrar = i;
+                        existPedido=1;
                     }
                 }
-                if (existecli == 1) {
+                listaPedidos.remove(numeroBorrar);
+
+                if (existPedido == 1) {
                     System.out.println("se ha eliminado el pedido");
                 } else {
                     System.out.println("El pedido no existe");
@@ -551,7 +558,7 @@ public class Prueba {
         mapeador.configure(SerializationFeature.INDENT_OUTPUT, true);
 
         //crearcarpeta devuelve la ruta del directorio creado
-        mapeador.writeValue(new File("./backup/"+crearCarpeta()+"/backup.json"), listaPedidos);
+        mapeador.writeValue(new File("./backup/" + crearCarpeta() + "/backup.json"), listaPedidos);
     }
 
     //metodo que crea un directorio con la fecha y la hora actual
@@ -573,4 +580,4 @@ public class Prueba {
         }
         return datos;
     }
-    }
+}
