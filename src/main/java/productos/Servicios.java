@@ -71,7 +71,7 @@ public class Servicios extends Productos {
 
     @Override
     public String toString() {
-        return  "-Servicios-->" + "nombre:" + nombre + ", horas:" + horas + ", fechaComienzo:" + fechaComienzo + ", fechaFin:" + fechaFin + ", listaServicios:" + listaServicios+", "+super.toString();
+        return  "-Servicios-->" + "nombre:" + nombre + ", horas:" + horas + ", fechaComienzo:" + fechaComienzo + ", fechaFin:" + fechaFin + ","+super.toString();
     }
 
     public ArrayList<Servicios> leerServicio(String idFichero) {

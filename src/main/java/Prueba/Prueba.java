@@ -93,7 +93,7 @@ public class Prueba {
                     generarBackup(listaPedidos);
                     break;
                 case 6:
-                    restaurarCopia();
+                    restaurarCopia(listaPedidos);
                     break;
 
             }
@@ -194,15 +194,18 @@ public class Prueba {
                 System.out.println("Escribe el nif del cliente que "
                         + "desea borrar");
                 teclado.nextLine();
-                String nifrBorrar = teclado.nextLine();
-                int existecli = 0;
-                for (Clientes cli : listaClientes) {
-                    if (nifrBorrar.equals(cli.getNifCliente())) {
-                        listaClientes.remove(cli);
-                        existecli = 1;
+                String nifBorrar = teclado.nextLine();
+
+                int numeroBorrar = 0;
+                int existCliente = 0;
+                for (int i = 0; i < listaClientes.size(); i++) {
+                    if (nifBorrar.equals(listaClientes.get(i).getNifCliente())) {
+                        numeroBorrar = i;
+                        existCliente = 1;
                     }
                 }
-                if (existecli == 1) {
+                listaClientes.remove(numeroBorrar);
+                if (existCliente == 1) {
                     System.out.println("se ha eliminado el cliente");
                 } else {
                     System.out.println("El cliente no existe");
@@ -331,12 +334,14 @@ public class Prueba {
                         break;
                     case 2:
                         System.out.println("Introduce el nombre:");
+                        teclado.nextLine();
                         String nombreServicio = teclado.nextLine();
 
                         System.out.println("Introduce las horas:");
                         int horas = teclado.nextInt();
 
                         System.out.println("Introduce la fecha de comienzo:");
+                        teclado.nextLine();
                         String fechaComienzo = teclado.nextLine();
                         LocalDate fechaC = LocalDate.parse(fechaComienzo);
 
@@ -357,18 +362,24 @@ public class Prueba {
 
             case 4:
                 System.out.println("Ha elegido borrar");
+                for (Productos pro : listaProductos) {
+                    System.out.println(pro);
+                }
                 System.out.println("Escribe el id del producto que "
                         + "desea borrar");
                 teclado.nextLine();
                 String idBorrar = teclado.nextLine();
-                int existecli = 0;
-                for (Productos p : listaProductos) {
-                    if (idBorrar.equals(p.getIdProducto())) {
-                        listaProductos.remove(p);
-                        existecli = 1;
+
+                int numeroBorrar = 0;
+                int existProducto = 0;
+                for (int i = 0; i < listaProductos.size(); i++) {
+                    if (idBorrar.equals(listaProductos.get(i).getIdProducto())) {
+                        numeroBorrar = i;
+                        existProducto = 1;
                     }
                 }
-                if (existecli == 1) {
+                listaProductos.remove(numeroBorrar);
+                if (existProducto == 1) {
                     System.out.println("se ha eliminado el producto");
                 } else {
                     System.out.println("El producto no existe");
@@ -492,6 +503,7 @@ public class Prueba {
                     System.out.println("Elige un producto de la lista por su id");
                     String producto = teclado.nextLine();
                     //for para añadir productos dependiendo si son artiulos o servicios
+                    int comprobar=0;
                     for (Productos p : listaProductos) {
                         if (p instanceof Articulos) {
                             if (p.getIdProducto().equals(producto)) {
@@ -502,7 +514,7 @@ public class Prueba {
                                 articuloP.setCantidad(cantidad);
                                 articuloPedido.add(articuloP);
                             } else {
-                                System.out.println("No encontrado");
+                                comprobar=1;
                             }
                         } else if (p instanceof Servicios) {
                             if (p.getIdProducto().equals(producto)) {
@@ -513,9 +525,12 @@ public class Prueba {
                                 servicioP.setCantidad(cantidad);
                                 servicioPedido.add(servicioP);
                             } else {
-                                System.out.println("No se ha encontrado");
+                                comprobar=1;
                             }
                         }
+                    }
+                    if(comprobar==1){
+                        System.out.println("Producto no encontrado");
                     }
                     System.out.println("¿Añadir otro producto? si/no");
                     teclado.nextLine();
@@ -612,9 +627,19 @@ public class Prueba {
         return datos;
     }
 
-    public static void restaurarCopia() {
+    public static void restaurarCopia(ArrayList<Pedidos> listaPedidos) throws IOException {
+        Scanner teclado = new Scanner(System.in);
         System.out.println("Ha elegido restaurar copia de seguridad");
         mostrarCarpetas();
+        ObjectMapper mapeadorLectura = new ObjectMapper();
+        System.out.println("Elige una copia de seguridad para restaurar");
+
+        String copiaEleccion = teclado.nextLine();
+        listaPedidos.clear();
+        String datos = "./backup/" + copiaEleccion + "/backup.json";
+        System.out.println(datos);
+        listaPedidos = mapeadorLectura.readValue(new File(datos),
+                mapeadorLectura.getTypeFactory().constructCollectionType(ArrayList.class, Pedidos.class));
     }
 
     public static void mostrarCarpetas() {
