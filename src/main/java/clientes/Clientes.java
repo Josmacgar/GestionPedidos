@@ -18,12 +18,14 @@ import java.util.Scanner;
  */
 public class Clientes {
 
+    //atributos
     private String nombre;
     private String apellidos;
     private String nifCliente;
     private String direccion;
     private ArrayList<Clientes> listaClientes;
 
+    //constructores
     public Clientes() {
         listaClientes = new ArrayList<>();
     }
@@ -34,8 +36,8 @@ public class Clientes {
         this.nifCliente = nifCliente;
         this.direccion = direccion;
     }
-    
 
+    //getters, setters y toString
     public String getNombre() {
         return nombre;
     }
@@ -81,17 +83,15 @@ public class Clientes {
         return "nombre:" + nombre + ", apellidos:" + apellidos + ", nifCliente:" + nifCliente + ", direccion:" + direccion;
     }
 
-   
-    
-
-    public  ArrayList<Clientes> leerCliente(String idFichero) {
+    //metodo que lee el fichero que se le pasa como parametro y devuelve una lista
+    //de Clientes
+    public ArrayList<Clientes> leerCliente(String idFichero) {
 
         // Variables para guardar los datos que se van leyendo
         String[] tokens;
         String linea;
 
 //        System.out.println("Leyendo el fichero: " + idFichero);
-
         // Inicialización del flujo "datosFichero" en función del archivo llamado "idFichero"
         // Estructura try-with-resources. Permite cerrar los recursos una vez finalizadas
         // las operaciones con el archivo
@@ -109,10 +109,6 @@ public class Clientes {
                 tmp.setNifCliente(tokens[2]);
                 tmp.setDireccion(tokens[3]);
                 listaClientes.add(tmp);
-//                for (String string : tokens) {
-//                    System.out.print(string + "\t");
-//                }
-//                System.out.println();
             }
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());

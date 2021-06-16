@@ -11,12 +11,15 @@ package productos;
  */
 public class ArticulosCantidad {
 
+    //atributos
     private Articulos articulo;
     private int cantidad;
 
+    //constructor
     public ArticulosCantidad() {
     }
 
+    //getters, setters y toString
     public Articulos getArticulo() {
         return articulo;
     }
@@ -35,9 +38,9 @@ public class ArticulosCantidad {
 
     @Override
     public String toString() {
-        return "Productos\n" + articulo.getNombre() + "--> " +cantidad+"unidades"+"--> "
-                + articulo.getPrecio() + "€."+ "\n--------------------------------------------\n";
-                
+        return "Productos\n" + articulo.getNombre() + "--> " + cantidad + "unidades" + "--> "
+                + articulo.getPrecio() + "€./unidad" + "\n--------------------------------------------\n";
+
     }
 
 }

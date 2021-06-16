@@ -14,7 +14,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
 import productos.ArticulosCantidad;
-import productos.ProductoNombreCantidad;
 import productos.Productos;
 import productos.ServiciosCantidad;
 
@@ -23,7 +22,9 @@ import productos.ServiciosCantidad;
  * @author aguil
  */
 public class Pedidos {
+    //atributos
 
+    //sirve para dar formato en las fechas en los ficheros JSON
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -36,8 +37,7 @@ public class Pedidos {
     private ArrayList<ServiciosCantidad> servicioCantidad = new ArrayList<>();
     private String dirCliente;
 
-
-
+    //constructores
     public Pedidos() {
     }
 
@@ -46,6 +46,7 @@ public class Pedidos {
         this.numeroPedido = numeroPedido;
     }
 
+    //metodo que crea un numero de pedido del tipo: 1234/2021
     public String crearNumeroPedido() {
         Random random = new Random();
         int aleatorio = random.nextInt(9999 - 1000 + 1) + 1000;
@@ -53,6 +54,7 @@ public class Pedidos {
         return numPedido;
     }
 
+    //getters, setters y toString
     public LocalDate getFechaPedido() {
         return fechaPedido;
     }
@@ -117,13 +119,11 @@ public class Pedidos {
         this.dirCliente = dirCliente;
     }
 
-
-
     @Override
     public String toString() {
         return empresa + "\n" + "Fecha: " + fechaPedido + "\n" + "Cliente: " + nomCliente + "\t\t"
                 + "Nº " + numeroPedido + "\n" + "Direccion del cliente: " + dirCliente + "\n"
-                + articuloCantidad + servicioCantidad + "\n" + "Forma de pago: " + tipoPago+"\n--------------------------";
+                + articuloCantidad + servicioCantidad + "\n" + "Forma de pago: " + tipoPago + "\n--------------------------";
 
     }
 

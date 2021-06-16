@@ -15,6 +15,7 @@ import java.util.ArrayList;
  */
 public class Empresa {
 
+    //atributos
     private final String NIF;
     private final String NOMBREEMPRESA;
     private String direccionEmpresa;
@@ -23,6 +24,7 @@ public class Empresa {
     private ArrayList<Productos> listaProductos;
     private ArrayList<Pedidos> listaPedidos;
 
+    //constructor
     public Empresa() {
         this.NIF = "46587744";
         this.NOMBREEMPRESA = "machoFish";
@@ -33,6 +35,7 @@ public class Empresa {
         this.listaPedidos = new ArrayList<>();
     }
 
+    //getters,setters y toString
     public String getDireccionEmpresa() {
         return direccionEmpresa;
     }
@@ -72,9 +75,6 @@ public class Empresa {
     public void setListaPedidos(ArrayList<Pedidos> listaPedidos) {
         this.listaPedidos = listaPedidos;
     }
-
-
-    
 
     @Override
     public String toString() {

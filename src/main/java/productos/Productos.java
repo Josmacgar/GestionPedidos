@@ -11,9 +11,11 @@ package productos;
  */
 public class Productos {
 
+    //atributos
     private String idProducto;
     private double precio;
 
+    //constructores
     public Productos() {
     }
 
@@ -22,6 +24,7 @@ public class Productos {
         this.precio = precio;
     }
 
+    //getters, setters y toString
     public String getIdProducto() {
         return idProducto;
     }

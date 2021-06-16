@@ -23,6 +23,7 @@ import java.util.Scanner;
  */
 public class Articulos extends Productos {
 
+    //atributos
     private String nombre;
     private int peso;
     //sirve para dar formato en las fechas en los ficheros JSON
@@ -32,6 +33,7 @@ public class Articulos extends Productos {
     private LocalDate fechaFabricacion;
     private ArrayList<Articulos> listaArticulos;
 
+    //constructores
     public Articulos() {
         listaArticulos = new ArrayList<>();
     }
@@ -44,6 +46,7 @@ public class Articulos extends Productos {
         listaArticulos = new ArrayList<>();
     }
 
+    //getters, setters y toString
     public String getNombre() {
         return nombre;
     }
@@ -78,15 +81,16 @@ public class Articulos extends Productos {
 
     @Override
     public String toString() {
-        return "-Articulos-->" + "nombre:" + nombre + ", peso:" + peso + ", fechaFabricacion:" + fechaFabricacion+", "+super.toString();
+        return "-Articulos-->" + "nombre:" + nombre + ", peso:" + peso + ", fechaFabricacion:" + fechaFabricacion + ", " + super.toString();
     }
 
+    //metodo que lee el fichero que se le pasa como parametro y devuelve una lista
+    //de Articulos
     public ArrayList<Articulos> leerArticulo(String idFichero) {
 
         // Variables para guardar los datos que se van leyendo
         String[] tokens;
         String linea;
-
 
         // Inicialización del flujo "datosFichero" en función del archivo llamado "idFichero"
         // Estructura try-with-resources. Permite cerrar los recursos una vez finalizadas
@@ -106,9 +110,6 @@ public class Articulos extends Productos {
                 tmp.setPeso(Integer.parseInt(tokens[3]));
                 tmp.setFechaFabricacion(LocalDate.parse(tokens[4], DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                 listaArticulos.add(tmp);
-//                for (String string : tokens) {
-//                    System.out.print(string + "\t");
-//                }
             }
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());

@@ -4,24 +4,14 @@ Calvario Nº 12
 359411223
 --------------------------
 Fecha: 2021-06-16
-Cliente: Pascual,Mingolla		Nº 9401/2021
-Direccion del cliente: farola,4
-[][Servicios
-Diseï¿½o web--> 1unidades--> 34.0€.
+Cliente: pepa,pig		Nº 1157/2021
+Direccion del cliente: calvario
+[Productos
+pepito--> 1unidades--> 98.0€./unidad
+--------------------------------------------
+][Servicios
+clases principales--> 2unidades--> 21.0€./unidad
 --------------------------------------------
 ]
-Forma de pago: transferencia
-----------------------------------------------------
-machoFish
-Calvario Nº 12 
-359411223
---------------------------
-Fecha: 2021-06-16
-Cliente: Manuel,Jimenez		Nº 8877/2021
-Direccion del cliente: alta,12
-[Productos
-pantalon--> 1unidades--> 78.0€.
---------------------------------------------
-][]
 Forma de pago: tarjeta
 --------------------------

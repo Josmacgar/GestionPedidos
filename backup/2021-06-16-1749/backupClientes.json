@@ -1,0 +1,31 @@
+[ {
+  "nombre" : "Alejandro",
+  "apellidos" : "Moreno",
+  "nifCliente" : "48124477A",
+  "direccion" : "calvario,31",
+  "listaClientes" : [ ]
+}, {
+  "nombre" : "Manuel",
+  "apellidos" : "Jimenez",
+  "nifCliente" : "447788521B",
+  "direccion" : "alta,12",
+  "listaClientes" : [ ]
+}, {
+  "nombre" : "Jairo",
+  "apellidos" : "Mendes",
+  "nifCliente" : "78541200C",
+  "direccion" : "fontana,22",
+  "listaClientes" : [ ]
+}, {
+  "nombre" : "Pascual",
+  "apellidos" : "Mingolla",
+  "nifCliente" : "49680173A",
+  "direccion" : "farola,4",
+  "listaClientes" : [ ]
+}, {
+  "nombre" : "pepa",
+  "apellidos" : "pig",
+  "nifCliente" : "33",
+  "direccion" : "der",
+  "listaClientes" : null
+} ]

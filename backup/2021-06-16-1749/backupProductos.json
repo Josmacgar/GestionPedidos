@@ -1,0 +1,29 @@
+[ {
+  "idProducto" : "aa12",
+  "precio" : 78.0,
+  "nombre" : "caña",
+  "peso" : 11,
+  "fechaFabricacion" : [ 2021, 6, 2 ],
+  "articulos" : [ ]
+}, {
+  "idProducto" : "a412",
+  "precio" : 67.0,
+  "nombre" : "carrete",
+  "peso" : 1,
+  "fechaFabricacion" : [ 2021, 6, 3 ],
+  "articulos" : [ ]
+}, {
+  "idProducto" : "ghtr445",
+  "precio" : 34.0,
+  "nombre" : "torneo de pesca",
+  "horas" : 12,
+  "fechaComienzo" : [ 2021, 6, 14 ],
+  "fechaFin" : [ 2021, 6, 16 ]
+}, {
+  "idProducto" : "ccvv11",
+  "precio" : 21.0,
+  "nombre" : "clases principales",
+  "horas" : 120,
+  "fechaComienzo" : [ 2021, 7, 2 ],
+  "fechaFin" : [ 2021, 7, 11 ]
+} ]
