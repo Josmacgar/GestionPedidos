@@ -9,15 +9,24 @@ package productos;
  *
  * @author aguil
  */
-public class ArticulosCantidad {
+public class  ArticulosCantidad extends Productos {
 
     //atributos
     private Articulos articulo;
     private int cantidad;
 
     //constructor
+
     public ArticulosCantidad() {
     }
+
+    public ArticulosCantidad(Articulos articulo, int cantidad, String idProducto, double precio) {
+        super(idProducto, precio);
+        this.articulo = articulo;
+        this.cantidad = cantidad;
+    }
+    
+    
 
     //getters, setters y toString
     public Articulos getArticulo() {

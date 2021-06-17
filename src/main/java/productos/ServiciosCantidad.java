@@ -9,7 +9,7 @@ package productos;
  *
  * @author aguil
  */
-public class ServiciosCantidad {
+public class ServiciosCantidad extends Productos {
 
     private Servicios servicio;
     private int cantidad;
@@ -17,8 +17,15 @@ public class ServiciosCantidad {
     public ServiciosCantidad() {
     }
 
-    public Servicios getServicio() {
-        return servicio;
+    public ServiciosCantidad(Servicios servicio, int cantidad) {
+        this.servicio = servicio;
+        this.cantidad = cantidad;
+    }
+
+    public ServiciosCantidad(Servicios servicio, int cantidad, String idProducto, double precio) {
+        super(idProducto, precio);
+        this.servicio = servicio;
+        this.cantidad = cantidad;
     }
 
     public void setServicio(Servicios servicio) {
@@ -35,8 +42,8 @@ public class ServiciosCantidad {
 
     @Override
     public String toString() {
-        return "Servicios\n" + servicio.getNombre() + "--> " +cantidad+" unidades"+"--> "
-                + servicio.getPrecio() + "€./unidad"+ "\n--------------------------------------------\n";
+        return "Servicios\n" + servicio.getNombre() + "--> " + cantidad + " unidades" + "--> "
+                + servicio.getPrecio() + "€./unidad" + "\n--------------------------------------------\n";
     }
 
 }

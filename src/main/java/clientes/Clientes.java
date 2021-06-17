@@ -138,7 +138,6 @@ public class Clientes {
         }
         System.out.println("¿Que clientes de los anteriores quiere "
                 + "modificar?");
-        teclado.nextLine();
         String nifCliente = teclado.nextLine();
 
         int comprobacion = 0;
@@ -206,7 +205,6 @@ public class Clientes {
         }
         System.out.println("Escribe el nif del cliente que "
                 + "desea borrar");
-        teclado.nextLine();
         String nifBorrar = teclado.nextLine();
 
         int numeroBorrar = 0;

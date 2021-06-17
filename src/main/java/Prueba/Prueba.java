@@ -41,11 +41,11 @@ public class Prueba {
     //metodo que muestra el menu y ejecuta otros metodos
     //del programa dependiendo de la seleccion
     public static void menu() throws IOException { //original
+        //se crea la empresa
         Empresa empresa1 = new Empresa();
         //clientes    
         Clientes cliente = new Clientes();
-        ArrayList<Clientes> listaClientes = cliente.leerCliente("clientes.csv");
-        empresa1.setListaClientes(listaClientes);
+        empresa1.setListaClientes(cliente.leerCliente("clientes.csv"));
 
         //productos
         Articulos articulo = new Articulos();
@@ -93,7 +93,7 @@ public class Prueba {
                     imprimirPedido(empresa1);
                     break;
                 case 5:
-                    generarBackup(empresa1);
+                    generarBackup(empresa1,listaArticulos,listaServicios);
                     break;
                 case 6:
                     restaurarCopia(empresa1);
@@ -222,7 +222,7 @@ public class Prueba {
 
     //metodo que recibe una empresa y genera una copia de seguridad en JSON de los clientes
     //productos y pedidos
-    public static void generarBackup(Empresa empresa1) throws IOException {
+    public static void generarBackup(Empresa empresa1, ArrayList<Articulos> listaArticulo, ArrayList<Servicios> listaServicio) throws IOException {
         //metodo que crea un directorio con la fecha y la hora actual
         crearCarpeta();
         ObjectMapper mapeador = new ObjectMapper();
@@ -232,7 +232,8 @@ public class Prueba {
         //crearcarpeta devuelve la ruta del directorio creado
         mapeador.writeValue(new File("./backup/" + crearCarpeta() + "/backupPedidos.json"), empresa1.getListaPedidos());
         mapeador.writeValue(new File("./backup/" + crearCarpeta() + "/backupClientes.json"), empresa1.getListaClientes());
-        mapeador.writeValue(new File("./backup/" + crearCarpeta() + "/backupProductos.json"), empresa1.getListaProductos());
+        mapeador.writeValue(new File("./backup/" + crearCarpeta() + "/backupArticulos.json"), listaArticulo);
+        mapeador.writeValue(new File("./backup/" + crearCarpeta() + "/backupServicios.json"), listaServicio);
     }
 
     //metodo que crea un directorio con la fecha y la hora actual
@@ -257,20 +258,24 @@ public class Prueba {
 
     //metodo que restaura las copias de seguridad de una empresa pasada como parametro
     public static void restaurarCopia(Empresa empresa1) throws IOException {
-        Scanner teclado = new Scanner(System.in);
-        System.out.println("Ha elegido restaurar copia de seguridad");
-        mostrarCarpetas();
-        ObjectMapper mapeadorLectura = new ObjectMapper();
-        System.out.println("Elige una copia de seguridad para restaurar");
+        try {
+            Scanner teclado = new Scanner(System.in);
+            System.out.println("Ha elegido restaurar copia de seguridad");
+            mostrarCarpetas();
+            ObjectMapper mapeadorLectura = new ObjectMapper();
+            System.out.println("Elige una copia de seguridad para restaurar");
 
-        String copiaEleccion = teclado.nextLine();
-        //se restauran las copias de seguridad de pedidos,clientes y productos
-        empresa1.getListaPedidos().clear();
-        Pedidos.restarurarCopiaClientes(empresa1, copiaEleccion);
-        Clientes.restarurarCopiaClientes(empresa1, copiaEleccion);
+            String copiaEleccion = teclado.nextLine();
+            //se restauran las copias de seguridad de pedidos,clientes y productos
+            empresa1.getListaPedidos().clear();
+            Pedidos.restarurarCopiaPedidos(empresa1, copiaEleccion);
+            Clientes.restarurarCopiaClientes(empresa1, copiaEleccion);
 //        Productos.restarurarCopiaproductos(empresa1, copiaEleccion);
-    }
+        } catch (Exception e) {
+            System.out.println("No se ha encontrado la copia ");
+        }
 
+    }
 
     //metodo que muestra los directorios de la carpeta backup
     public static void mostrarCarpetas() {

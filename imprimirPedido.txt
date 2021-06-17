@@ -4,14 +4,27 @@ Calvario Nº 12
 359411223
 --------------------------
 Fecha: 2021-06-17
-Cliente: Alejandro,Moreno		Nº 6436/2021
+Cliente: Alejandro,Moreno		Nº 9322/2021
 Direccion del cliente: calvario,31
 [Productos
 caña--> 1 unidades--> 78.0€./unidad
 --------------------------------------------
 , Productos
-carrete--> 2 unidades--> 67.0€./unidad
+carrete--> 1 unidades--> 67.0€./unidad
 --------------------------------------------
 ][]
+Forma de pago: tarjeta
+----------------------------------------------------
+machoFish
+Calvario Nº 12 
+359411223
+--------------------------
+Fecha: 2021-06-17
+Cliente: Pascual,Mingolla		Nº 4010/2021
+Direccion del cliente: farola,4
+[][Servicios
+torneo de pesca--> 2 unidades--> 34.0€./unidad
+--------------------------------------------
+]
 Forma de pago: transferencia
 --------------------------

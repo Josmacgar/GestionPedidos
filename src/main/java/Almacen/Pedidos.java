@@ -248,45 +248,10 @@ public class Pedidos {
                             p.setServicioCantidad(servicioPedido);
                             break;
                         case 2:
-                            for (ArticulosCantidad producto : p.getArticuloCantidad()) {
-                                System.out.println(producto);
-                            }
-                            for (ServiciosCantidad producto : p.getServicioCantidad()) {
-                                System.out.println(producto);
-                            }
-                            System.out.println("Escribe el nombre del producto que "
-                                    + "desea borrar");
-                            teclado.nextLine();
-                            String productoBorrar = teclado.nextLine();
-                            int numeroBorrar = 0;
-                            int exisProducto = 0;
-                            //for que recorre la lista de clientes y si es igual actualiza la
-                            //variable igualandola a la posicion de la lista para luego eliminarla
-                            for (int i = 0; i < p.getArticuloCantidad().size(); i++) {
-                                if (productoBorrar.equals(p.getNomCliente())) {
-
-                                    numeroBorrar = i;
-                                    exisProducto = 1;
-                                }
-                            }
-
-                            if (exisProducto == 1) {
-                                System.out.println("se ha eliminado el producto");
-                                p.getArticuloCantidad().remove(numeroBorrar);
-                            } else {
-                                exisProducto = 0;
-                                for (int i = 0; i < p.getServicioCantidad().size(); i++) {
-                                    if (productoBorrar.equals(p.getNomCliente())) {
-
-                                        numeroBorrar = i;
-                                        exisProducto = 2;
-                                    }
-                                }
-
-                            }
-                            if (exisProducto == 2) {
-                                p.getServicioCantidad().remove(numeroBorrar);
-                            }
+                            p.getArticuloCantidad().clear();
+                            p.getServicioCantidad().clear();
+                            System.out.println("Lista borrada\npara añadir productos"
+                                    + "vaya al menu 2");
                             break;
                     }
                 } while (respuesta != 3);
@@ -411,7 +376,7 @@ public class Pedidos {
     }
 
     //metodo que restarura la copia de seguridad de los clientes de la empresa
-    public static void restarurarCopiaClientes(Empresa empresa1, String copiaEleccion) throws IOException {
+    public static void restarurarCopiaPedidos(Empresa empresa1, String copiaEleccion) throws IOException {
         ObjectMapper mapeadorLectura = new ObjectMapper();
         String datos = "./backup/" + copiaEleccion + "/backupPedidos.json";
         System.out.println(datos);
