@@ -3,15 +3,15 @@ machoFish
 Calvario Nº 12 
 359411223
 --------------------------
-Fecha: 2021-06-16
-Cliente: pepa,pig		Nº 1157/2021
-Direccion del cliente: calvario
+Fecha: 2021-06-17
+Cliente: Alejandro,Moreno		Nº 6436/2021
+Direccion del cliente: calvario,31
 [Productos
-pepito--> 1unidades--> 98.0€./unidad
+caña--> 1 unidades--> 78.0€./unidad
 --------------------------------------------
-][Servicios
-clases principales--> 2unidades--> 21.0€./unidad
+, Productos
+carrete--> 2 unidades--> 67.0€./unidad
 --------------------------------------------
-]
-Forma de pago: tarjeta
+][]
+Forma de pago: transferencia
 --------------------------

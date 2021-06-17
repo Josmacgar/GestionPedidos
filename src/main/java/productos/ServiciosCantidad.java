@@ -35,7 +35,7 @@ public class ServiciosCantidad {
 
     @Override
     public String toString() {
-        return "Servicios\n" + servicio.getNombre() + "--> " +cantidad+"unidades"+"--> "
+        return "Servicios\n" + servicio.getNombre() + "--> " +cantidad+" unidades"+"--> "
                 + servicio.getPrecio() + "€./unidad"+ "\n--------------------------------------------\n";
     }
 

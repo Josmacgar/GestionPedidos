@@ -120,106 +120,17 @@ public class Prueba {
         //switch para realizar las operaciones elegidas anteriormente
         switch (menuClientes) {
             case 1:
-                System.out.println("Ha elegido consultar");
-                //for para imprimir los clientes
-                for (Clientes c : empresa1.getListaClientes()) {
-                    System.out.println(c);
-                }
+                Clientes.mostrarCliente(empresa1);
                 break;
             case 2:
-                System.out.println("Ha elegido modificar");
-                //for para imprimir los clientes
-                for (Clientes c : empresa1.getListaClientes()) {
-                    System.out.println(c);
-                }
-                System.out.println("¿Que clientes de los anteriores quiere "
-                        + "modificar?");
-                teclado.nextLine();
-                String nifCliente = teclado.nextLine();
-
-                int comprobacion = 0;
-                //for para modificar el cliente
-                for (Clientes c : empresa1.getListaClientes()) {
-                    //if para comprobar el nombre del cliente
-                    if (nifCliente.equals(c.getNifCliente())) {
-                        //se modifica el nombre, apellidos y direccion
-                        System.out.println("Introduce el nombre:");
-                        String nombre = teclado.nextLine();
-                        c.setNombre(nombre);
-
-                        System.out.println("Introduce los apellidos:");
-                        String apellidos = teclado.nextLine();
-                        c.setApellidos(apellidos);
-
-                        System.out.println("Introduce el nif:");
-                        String nif = teclado.nextLine();
-                        c.setNifCliente(nif);
-
-                        System.out.println("Introduce la direccion:");
-                        String direccion = teclado.nextLine();
-                        c.setDireccion(direccion);
-                        comprobacion = 1;
-                    }
-                }
-                if (comprobacion == 0) {
-                    System.out.println("No se ha encontrado el cliente");
-                }
+                Clientes.modificarCliente(empresa1);
                 break;
             case 3:
-                System.out.println("Ha elegido añadir");
-                teclado.nextLine();
-                System.out.println("Introduce el nombre:");
-                String nombre = teclado.nextLine();
-                System.out.println("Introduce los apellidos:");
-                String apellidos = teclado.nextLine();
-                System.out.println("Introduce el nif:");
-                String nif = teclado.nextLine();
-                System.out.println("Introduce la direccion:");
-                String direccion = teclado.nextLine();
-
-                int nifExist = 0;
-                //for para comprobar si el dni a meter ya existe
-                for (Clientes cli : empresa1.getListaClientes()) {
-                    if (nif.equals(cli.getNifCliente())) {
-                        nifExist = 1;
-                    }
-                }
-                //if para meter el cliente en caso de que el nif no exista
-                if (nifExist == 0) {
-                    empresa1.getListaClientes().add(new Clientes(nombre, apellidos, nif, direccion));
-                    System.out.println("Se ha añadido el cliente");
-                } else {
-                    System.out.println("No se ha añadido el cliente");
-                }
+                Clientes.añadirCliente(empresa1);
 
                 break;
             case 4:
-                System.out.println("Ha elegido borrar");
-                for (Clientes cli : empresa1.getListaClientes()) {
-                    System.out.println(cli);
-                }
-                System.out.println("Escribe el nif del cliente que "
-                        + "desea borrar");
-                teclado.nextLine();
-                String nifBorrar = teclado.nextLine();
-
-                int numeroBorrar = 0;
-                int existCliente = 0;
-                //for que recorre la lista de clientes y si es igual actualiza la
-                //variable igualandola a la posicion de la lista para luego eliminarla
-                for (int i = 0; i < empresa1.getListaClientes().size(); i++) {
-                    if (nifBorrar.equals(empresa1.getListaClientes().get(i).getNifCliente())) {
-                        numeroBorrar = i;
-                        existCliente = 1;
-                    }
-                }
-                empresa1.getListaClientes().remove(numeroBorrar);
-                if (existCliente == 1) {
-                    System.out.println("se ha eliminado el cliente");
-                } else {
-                    System.out.println("El cliente no existe");
-                }
-
+                Clientes.borrarClientes(empresa1);
                 break;
         }
     }
@@ -239,160 +150,17 @@ public class Prueba {
         //switch para realizar las operaciones elegidas anteriormente
         switch (menuProductos) {
             case 1:
-                System.out.println("Ha elegido consultar");
-                //for para imprimir los productos
-                for (Productos p : empresa1.getListaProductos()) {
-                    System.out.println(p);
-                }
+                Productos.mostrarProductos(empresa1);
                 break;
             case 2:
-                System.out.println("Ha elegido modificar");
-                //for para imprimir los productos
-                for (Productos c : empresa1.getListaProductos()) {
-                    System.out.println(c);
-                }
-                System.out.println("¿Que producto de los anteriores quiere "
-                        + "modificar? 'ID'");
-                teclado.nextLine();
-                String idProducto = teclado.nextLine();
-
-                int comprobacion = 0;
-                //for para modificar el cliente
-                for (Productos p : empresa1.getListaProductos()) {
-                    //if para comprobar el id del producto
-                    if (idProducto.equals(p.getIdProducto())) {
-                        //if para saber si es articulo
-                        if (p instanceof Articulos) {
-                            System.out.println("Introduce el nombre:");
-                            String nombre = teclado.nextLine();
-                            ((Articulos) p).setNombre(nombre);
-
-                            System.out.println("Introduce el peso:");
-                            int peso = teclado.nextInt();
-                            ((Articulos) p).setPeso(peso);
-
-                            System.out.println("Introduce la fecha de fabricacion:");
-                            teclado.nextLine();
-                            String fechaFabricacion = teclado.nextLine();
-                            LocalDate fecha = LocalDate.parse(fechaFabricacion);
-                            ((Articulos) p).setFechaFabricacion(fecha);
-                            comprobacion = 1;
-
-                            System.out.println("Introduce el precio:");
-                            int precio = teclado.nextInt();
-                            p.setPrecio(precio);
-                            //if para saber si es servicio
-                        } else if (p instanceof Servicios) {
-                            System.out.println("Introduce el nombre:");
-                            String nombre = teclado.nextLine();
-                            ((Servicios) p).setNombre(nombre);
-
-                            System.out.println("Introduce las horas:");
-                            int horas = teclado.nextInt();
-                            ((Servicios) p).setHoras(horas);
-
-                            System.out.println("Introduce la fecha de comienzo:");
-                            String fechaComienzo = teclado.nextLine();
-                            LocalDate fechaC = LocalDate.parse(fechaComienzo);
-                            ((Servicios) p).setFechaComienzo(fechaC);
-
-                            System.out.println("Introduce la fecha de fin:");
-                            String fechaFin = teclado.nextLine();
-                            LocalDate fechaF = LocalDate.parse(fechaFin);
-                            ((Servicios) p).setFechaFin(fechaF);
-
-                            System.out.println("Introduce el precio:");
-                            int precio = teclado.nextInt();
-                            p.setPrecio(precio);
-                            comprobacion = 1;
-                        }
-                    }
-                }
-                if (comprobacion == 0) {
-                    System.out.println("No se ha encontrado el producto");
-                }
+                Productos.modificarProducto(empresa1);
                 break;
             case 3:
-                System.out.println("Ha elegido añadir");
-                System.out.println("¿Que producto quiere añadir?\n1.Articulo\n2.Servicio");
-                teclado.nextLine();
-                int añadirProducto = teclado.nextInt();
-                //switch para elegir las operaciones
-                switch (añadirProducto) {
-                    case 1:
-                        teclado.nextLine();
-                        System.out.println("Introduce el nombre:");
-                        String nombre = teclado.nextLine();
-
-                        System.out.println("Introduce el peso:");
-                        int peso = teclado.nextInt();
-
-                        System.out.println("Introduce la fecha de fabricacion:");
-                        teclado.nextLine();
-                        String fechaFabricacion = teclado.nextLine();
-                        LocalDate fecha = LocalDate.parse(fechaFabricacion);
-
-                        System.out.println("Introduzca el id del producto");
-                        String id = teclado.nextLine();
-
-                        System.out.println("Introduzca el precio del producto");
-                        double precio = teclado.nextDouble();
-                        empresa1.getListaProductos().add(new Articulos(nombre, peso, fecha, id, precio));
-                        break;
-                    case 2:
-                        System.out.println("Introduce el nombre:");
-                        teclado.nextLine();
-                        String nombreServicio = teclado.nextLine();
-
-                        System.out.println("Introduce las horas:");
-                        int horas = teclado.nextInt();
-
-                        System.out.println("Introduce la fecha de comienzo:");
-                        teclado.nextLine();
-                        String fechaComienzo = teclado.nextLine();
-                        LocalDate fechaC = LocalDate.parse(fechaComienzo);
-
-                        System.out.println("Introduce la fecha de fin:");
-                        String fechaFin = teclado.nextLine();
-                        LocalDate fechaF = LocalDate.parse(fechaFin);
-
-                        System.out.println("Introduzca el id del producto");
-                        String idServicio = teclado.nextLine();
-
-                        System.out.println("Introduzca el precio del producto");
-                        double precioServicio = teclado.nextDouble();
-
-                        empresa1.getListaProductos().add(new Servicios(nombreServicio, horas, fechaC, fechaF, idServicio, precioServicio));
-                        break;
-                }
+                Productos.añadirProducto(empresa1);
                 break;
 
             case 4:
-                System.out.println("Ha elegido borrar");
-                for (Productos pro : empresa1.getListaProductos()) {
-                    System.out.println(pro);
-                }
-                System.out.println("Escribe el id del producto que "
-                        + "desea borrar");
-                teclado.nextLine();
-                String idBorrar = teclado.nextLine();
-                //for que recorre la lista de clientes y si es igual actualiza la
-                //variable igualandola a la posicion de la lista para luego eliminarla
-                int numeroBorrar = 0;
-                int existProducto = 0;
-                for (int i = 0; i < empresa1.getListaProductos().size(); i++) {
-                    if (idBorrar.equals(empresa1.getListaProductos().get(i).getIdProducto())) {
-                        numeroBorrar = i;
-                        existProducto = 1;
-                    }
-                }
-                empresa1.getListaProductos().remove(numeroBorrar);
-                if (existProducto == 1) {
-                    System.out.println("se ha eliminado el producto");
-                } else {
-                    System.out.println("El producto no existe");
-                }
-
+                Productos.borrarProducto(empresa1);
                 break;
         }
     }
@@ -414,170 +182,16 @@ public class Prueba {
         //switch para realizar las operaciones elegidas anteriormente
         switch (menuPedidos) {
             case 1:
-                System.out.println("Ha elegido consultar");
-                //for para imprimir los pedidos
-                for (Pedidos p : empresa1.getListaPedidos()) {
-                    System.out.println(p);
-                }
+                Pedidos.mostrarPedidos(empresa1);
                 break;
             case 2:
-                System.out.println("Ha elegido modificar");
-                //for para imprimir los pedidos
-                for (Pedidos p : empresa1.getListaPedidos()) {
-                    System.out.println(p);
-                }
-                System.out.println("¿Que pedido de los anteriores quiere "
-                        + "modificar?");
-                teclado.nextLine();
-                String numeroPedido = teclado.nextLine();
-
-                int comprobacion = 0;
-                //for para modificar el pedido
-                for (Pedidos p : empresa1.getListaPedidos()) {
-                    //if para comprobar el numero del pedido
-                    if (numeroPedido.equals(p.getNumeroPedido())) {
-                        //se modifica el nombre,tipo de pago y la lista de productos
-                        for (Clientes cli : empresa1.getListaClientes()) {
-                            System.out.println(cli);
-                        }
-                        System.out.println("Introduce el nif del cliente:");
-                        String nifCli = teclado.nextLine();
-                        for (Clientes c : empresa1.getListaClientes()) {
-                            //if para comprobar el nombre del cliente
-                            if (nifCli.equals(c.getNifCliente())) {
-                                p.setNomCliente(c.getNombre() + "," + c.getApellidos());
-                                p.setDirCliente(c.getDireccion());
-                            }
-                        }
-
-                        //se modifica el tipo de pago
-                        String tipoPago;
-                        do {
-                            System.out.println("Introduce el tipo de pago");
-                            tipoPago = teclado.nextLine();
-                        } while (!tipoPago.equalsIgnoreCase("tarjeta") && !tipoPago.equalsIgnoreCase("transferencia"));
-                        pedido.setTipoPago(tipoPago);
-
-                        //modificar lista de productos
-//                        p.getLista().forEach(System.out::println);
-                    }
-                }
-                if (comprobacion == 0) {
-                    System.out.println("No se ha encontrado el cliente");
-                }
+                Pedidos.modificarPedido(empresa1, pedido);
                 break;
             case 3:
-                System.out.println("Ha elegido añadir");
-                teclado.nextLine();
-                //se le asigna un numero de pedido
-                pedido.setNumeroPedido(pedido.crearNumeroPedido());
-                //se le asigna la empresa
-                pedido.setEmpresa(empresa);
-                //se muestran todos los clientes
-                for (Clientes cli : empresa1.getListaClientes()) {
-                    System.out.println(cli);
-                }
-                System.out.println("Elige uno de los clientes anteriores");
-                String nifCliente = teclado.nextLine();
-
-                //for para comprobar si el dni ya existe
-                for (Clientes cli : empresa1.getListaClientes()) {
-                    if (nifCliente.equals(cli.getNifCliente())) {
-                        pedido.setNomCliente(cli.getNombre() + "," + cli.getApellidos());
-                        pedido.setDirCliente(cli.getDireccion());
-                    }
-                }
-                //se le pone la fecha de hoy al pedido
-                pedido.setFechaPedido(LocalDate.now());
-                //se configura el tipo de pago
-                String tipoPago;
-                do {
-                    System.out.println("Introduce el tipo de pago");
-                    tipoPago = teclado.nextLine();
-                } while (!tipoPago.equalsIgnoreCase("tarjeta") && !tipoPago.equalsIgnoreCase("transferencia"));
-                pedido.setTipoPago(tipoPago);
-                //se selecciona los articulos que se quieran añadir al pedido
-                for (Productos producto : empresa1.getListaProductos()) {
-                    System.out.println(producto);
-                }
-                //listas para añadir los productos
-                int salir = 0;
-                ArrayList<ArticulosCantidad> articuloPedido = new ArrayList<>();
-                ArrayList<ServiciosCantidad> servicioPedido = new ArrayList<>();
-
-                do {
-                    salir = 0;
-                    System.out.println("Elige un producto de la lista por su id");
-                    String producto = teclado.nextLine();
-                    //for para añadir productos dependiendo si son artiulos o servicios
-                    int comprobar = 0;
-                    for (Productos p : empresa1.getListaProductos()) {
-                        if (p instanceof Articulos) {
-                            if (p.getIdProducto().equals(producto)) {
-                                ArticulosCantidad articuloP = new ArticulosCantidad();
-                                articuloP.setArticulo((Articulos) p);
-                                System.out.println("Indica la cantidad: ");
-                                int cantidad = teclado.nextInt();
-                                articuloP.setCantidad(cantidad);
-                                articuloPedido.add(articuloP);
-                            } else {
-                                comprobar = 1;
-                            }
-                        } else if (p instanceof Servicios) {
-                            if (p.getIdProducto().equals(producto)) {
-                                ServiciosCantidad servicioP = new ServiciosCantidad();
-                                servicioP.setServicio((Servicios) p);
-                                System.out.println("Indica la cantidad: ");
-                                int cantidad = teclado.nextInt();
-                                servicioP.setCantidad(cantidad);
-                                servicioPedido.add(servicioP);
-                            } else {
-                                comprobar = 1;
-                            }
-                        }
-                    }
-                    if (comprobar == 1) {
-                        System.out.println("Producto no encontrado");
-                    }
-                    System.out.println("¿Añadir otro producto? si/no");
-                    teclado.nextLine();
-                    String salida = teclado.nextLine();
-                    if (salida.equalsIgnoreCase("Si")) {
-                        salir = 1;
-                    }
-                } while (salir == 1);
-                pedido.setArticuloCantidad(articuloPedido);
-                pedido.setServicioCantidad(servicioPedido);
-                empresa1.getListaPedidos().add(pedido);
+                Pedidos.añadirPedido(empresa1, pedido, empresa);
                 break;
             case 4:
-                System.out.println("Ha elegido borrar");
-                for (Pedidos p : empresa1.getListaPedidos()) {
-                    System.out.println(p);
-                }
-                System.out.println("Escribe el numero del pedido que "
-                        + "desea borrar");
-                teclado.nextLine();
-                String pedidoBorrar = teclado.nextLine();
-                int numeroBorrar = 0;
-                int existPedido = 0;
-                //for que recorre la lista de clientes y si es igual actualiza la
-                //variable igualandola a la posicion de la lista para luego eliminarla
-                for (int i = 0; i < empresa1.getListaPedidos().size(); i++) {
-                    if (pedidoBorrar.equals(empresa1.getListaPedidos().get(i).getNumeroPedido())) {
-
-                        numeroBorrar = i;
-                        existPedido = 1;
-                    }
-                }
-                empresa1.getListaPedidos().remove(numeroBorrar);
-
-                if (existPedido == 1) {
-                    System.out.println("se ha eliminado el pedido");
-                } else {
-                    System.out.println("El pedido no existe");
-                }
-
+                Pedidos.borrarPedido(empresa1);
                 break;
         }
     }
@@ -650,33 +264,13 @@ public class Prueba {
         System.out.println("Elige una copia de seguridad para restaurar");
 
         String copiaEleccion = teclado.nextLine();
+        //se restauran las copias de seguridad de pedidos,clientes y productos
         empresa1.getListaPedidos().clear();
-        String datos = "./backup/" + copiaEleccion + "/backupPedidos.json";
-        System.out.println(datos);
-
-        empresa1.setListaPedidos(mapeadorLectura.readValue(new File(datos),
-                mapeadorLectura.getTypeFactory().constructCollectionType(ArrayList.class, Pedidos.class)));
-        restarurarCopiaClientes(empresa1, copiaEleccion);
-//        restarurarCopiaproductos(empresa1, copiaEleccion);
+        Pedidos.restarurarCopiaClientes(empresa1, copiaEleccion);
+        Clientes.restarurarCopiaClientes(empresa1, copiaEleccion);
+//        Productos.restarurarCopiaproductos(empresa1, copiaEleccion);
     }
 
-    //metodo que restarura la copia de seguridad de los clientes de la empresa
-    public static void restarurarCopiaClientes(Empresa empresa1, String copiaEleccion) throws IOException {
-        ObjectMapper mapeadorLectura = new ObjectMapper();
-        String datos = "./backup/" + copiaEleccion + "/backupClientes.json";
-        System.out.println(datos);
-        empresa1.setListaClientes(mapeadorLectura.readValue(new File(datos),
-                mapeadorLectura.getTypeFactory().constructCollectionType(ArrayList.class, Clientes.class)));
-    }
-
-    //metodo que restarura la copia de seguridad de los productos de la empresa
-    public static void restarurarCopiaproductos(Empresa empresa1, String copiaEleccion) throws IOException {
-        ObjectMapper mapeadorLectura = new ObjectMapper();
-        String datos = "./backup/" + copiaEleccion + "/backupProductos.json";
-        System.out.println(datos);
-        empresa1.setListaProductos(mapeadorLectura.readValue(new File(datos),
-                mapeadorLectura.getTypeFactory().constructCollectionType(ArrayList.class, Productos.class)));
-    }
 
     //metodo que muestra los directorios de la carpeta backup
     public static void mostrarCarpetas() {

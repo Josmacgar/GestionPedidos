@@ -38,7 +38,7 @@ public class ArticulosCantidad {
 
     @Override
     public String toString() {
-        return "Productos\n" + articulo.getNombre() + "--> " + cantidad + "unidades" + "--> "
+        return "Productos\n" + articulo.getNombre() + "--> " + cantidad + " unidades" + "--> "
                 + articulo.getPrecio() + "€./unidad" + "\n--------------------------------------------\n";
 
     }

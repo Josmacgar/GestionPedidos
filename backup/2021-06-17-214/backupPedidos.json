@@ -1,6 +1,6 @@
 [ {
-  "fechaPedido" : [ 2021, 6, 16 ],
-  "numeroPedido" : "5079/2021",
+  "fechaPedido" : [ 2021, 6, 17 ],
+  "numeroPedido" : "6436/2021",
   "nomCliente" : "Alejandro,Moreno",
   "empresa" : {
     "direccionEmpresa" : "Calvario Nº 12 ",
@@ -9,7 +9,7 @@
     "listaProductos" : [ ],
     "listaPedidos" : [ ]
   },
-  "tipoPago" : "tarjeta",
+  "tipoPago" : "transferencia",
   "articuloCantidad" : [ {
     "articulo" : {
       "idProducto" : "aa12",
@@ -20,6 +20,16 @@
       "articulos" : [ ]
     },
     "cantidad" : 1
+  }, {
+    "articulo" : {
+      "idProducto" : "a412",
+      "precio" : 67.0,
+      "nombre" : "carrete",
+      "peso" : 1,
+      "fechaFabricacion" : [ 2021, 6, 3 ],
+      "articulos" : [ ]
+    },
+    "cantidad" : 2
   } ],
   "servicioCantidad" : [ ],
   "dirCliente" : "calvario,31"

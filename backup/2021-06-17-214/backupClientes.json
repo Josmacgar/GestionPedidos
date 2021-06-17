@@ -22,10 +22,4 @@
   "nifCliente" : "49680173A",
   "direccion" : "farola,4",
   "listaClientes" : [ ]
-}, {
-  "nombre" : "pepa",
-  "apellidos" : "pig",
-  "nifCliente" : "11",
-  "direccion" : "calvario",
-  "listaClientes" : null
 } ]
